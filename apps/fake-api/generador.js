@@ -30,7 +30,7 @@ function claseSolar() {
   return `${letra}${entre(1, 9.9).toFixed(1)}`;
 }
 
-export function llamaradas(cuantas = 6) {
+export function llamaradas(cuantas = 12) {
   const ahora = Date.now();
   return Array.from({ length: cuantas }, (_, i) => {
     const inicio = new Date(ahora - (i * entre(6, 40) + entre(1, 5)) * 3600_000);
@@ -52,7 +52,7 @@ export function llamaradas(cuantas = 6) {
 }
 
 export function feedNeoWs(fecha) {
-  const objetos = Array.from({ length: entero(4, 11) }, (_, i) => {
+  const objetos = Array.from({ length: entero(9, 16) }, (_, i) => {
     const dmin = entre(8, 420);
     return {
       id: String(entero(2000000, 3999999)),
@@ -98,4 +98,58 @@ export function cad(limite = 5) {
     fields: ["des", "orbit_id", "cd", "dist", "v_rel", "h"],
     data,
   };
+}
+
+/** Eyecciones de masa coronal. La forma es la de DONKI/CME, con su `cmeAnalyses`
+ *  anidado, que es donde vienen la velocidad y el ángulo. */
+export function eyecciones(cuantas = 6) {
+  const ahora = Date.now();
+  return Array.from({ length: cuantas }, (_, i) => {
+    const inicio = new Date(ahora - (i * entre(10, 60) + entre(2, 8)) * 3600_000);
+    const velocidad = Math.round(entre(280, 2400));
+    const anguloMedio = Math.round(entre(12, 90));
+    // Una CME de halo completo apunta hacia la Tierra: es la que importa.
+    const halo = anguloMedio > 70;
+    return {
+      activityID: `${isoZ(inicio).replace("Z", "")}-CME-${String(i + 1).padStart(3, "0")}`,
+      startTime: isoZ(inicio),
+      sourceLocation: `${elegir(["N", "S"])}${entero(5, 30)}${elegir(["E", "W"])}${entero(10, 95)}`,
+      activeRegionNum: entero(13800, 14300),
+      note: "Dato simulado por la fake API de KillaLab. No es un evento real.",
+      link: `https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/CME/${entero(10000, 99999)}/-1`,
+      cmeAnalyses: [
+        {
+          isMostAccurate: true,
+          time21_5: isoZ(new Date(inicio.getTime() + entre(30, 180) * 60_000)),
+          latitude: Number(entre(-40, 40).toFixed(1)),
+          longitude: Number(entre(-90, 90).toFixed(1)),
+          halfAngle: anguloMedio,
+          speed: velocidad,
+          type: velocidad > 1500 ? "R" : velocidad > 900 ? "O" : "S",
+          isHaloCME: halo,
+          note: halo ? "halo completo, dirigida hacia la Tierra" : "",
+        },
+      ],
+    };
+  });
+}
+
+/** Tormentas geomagnéticas. DONKI las devuelve con una serie de índices Kp. */
+export function tormentas(cuantas = 4) {
+  const ahora = Date.now();
+  return Array.from({ length: cuantas }, (_, i) => {
+    const inicio = new Date(ahora - (i * entre(20, 90) + entre(4, 12)) * 3600_000);
+    const lecturas = Array.from({ length: entero(2, 5) }, (_, j) => ({
+      observedTime: isoZ(new Date(inicio.getTime() + j * 3 * 3600_000)),
+      kpIndex: Number(entre(4, 8.7).toFixed(2)),
+      source: "NOAA SWPC",
+    }));
+    return {
+      gstID: `${isoZ(inicio).replace("Z", "")}-GST-${String(i + 1).padStart(3, "0")}`,
+      startTime: isoZ(inicio),
+      allKpIndex: lecturas,
+      note: "Dato simulado por la fake API de KillaLab. No es un evento real.",
+      link: `https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/GST/${entero(10000, 99999)}/-1`,
+    };
+  });
 }

@@ -12,7 +12,7 @@
  */
 
 import { createServer } from "node:http";
-import { llamaradas, feedNeoWs, cad } from "./generador.js";
+import { llamaradas, feedNeoWs, cad, eyecciones, tormentas } from "./generador.js";
 
 const PUERTO = Number(process.env.FAKE_API_PUERTO ?? 4000);
 
@@ -30,14 +30,21 @@ const json = (res, cuerpo, estado = 200) => {
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const RUTAS = {
-  "/DONKI/FLR": (q) => (q.get("fallo") === "vacio" ? [] : llamaradas(6)),
-  "/DONKI/CME": () => [],
+  "/DONKI/FLR": (q) => (q.get("fallo") === "vacio" ? [] : llamaradas(12)),
+  "/DONKI/CME": (q) => (q.get("fallo") === "vacio" ? [] : eyecciones(6)),
+  "/DONKI/GST": (q) => (q.get("fallo") === "vacio" ? [] : tormentas(4)),
   "/neo/rest/v1/feed": (q) => feedNeoWs(q.get("start_date") ?? new Date().toISOString().slice(0, 10)),
   "/cad.api": (q) =>
     q.get("fallo") === "vacio"
       ? { signature: { source: "KillaLab fake API" }, count: "0", fields: [], data: [] }
-      : cad(Number(q.get("limit") ?? 5)),
-  "/salud": () => ({ estado: "ok", servicio: "killalab-fake-api", hora: new Date().toISOString() }),
+      : cad(Number(q.get("limit") ?? 8)),
+  "/salud": () => ({
+    estado: "ok",
+    servicio: "killalab-fake-api",
+    hora: new Date().toISOString(),
+    // La semilla es el día: los datos son estables dentro de una jornada.
+    semilla: new Date().toISOString().slice(0, 10),
+  }),
 };
 
 const servidor = createServer(async (req, res) => {
