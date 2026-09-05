@@ -1,6 +1,6 @@
-import { nasa } from "../cliente.js";
-import * as cache from "../cache.js";
-import type { Asteroide, Dato } from "../tipos.js";
+import { nasa, procedenciaInicial } from "../cliente";
+import * as cache from "../cache";
+import type { Asteroide, Dato } from "../tipos";
 
 const CLAVE = "neows:feed:hoy";
 
@@ -30,7 +30,7 @@ export async function cercanosDeHoy(): Promise<Dato<Asteroide[]> | null> {
       valor: lista,
       fuente: "NeoWs",
       capturado: new Date().toISOString(),
-      procedencia: "vivo",
+      procedencia: procedenciaInicial(),
     });
   } catch {
     return cache.leer<Asteroide[]>(CLAVE);

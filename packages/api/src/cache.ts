@@ -1,4 +1,4 @@
-import type { Dato, Procedencia } from "./tipos.js";
+import type { Dato, Procedencia } from "./tipos";
 
 /** Caché en memoria por proceso. Suficiente para SSR con revalidate;
  *  la capa durable vive en Supabase (tabla evento_cache). */

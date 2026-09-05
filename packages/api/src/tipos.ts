@@ -8,8 +8,9 @@ export const FUENTES: Record<CodigoFuente, { nombre: string; url: string }> = {
 };
 
 /** Estado de procedencia del dato. `cache` y `respaldo` NO son errores:
- *  se muestran igual, fechados. El módulo nunca se oculta. */
-export type Procedencia = "vivo" | "cache" | "respaldo";
+ *  se muestran igual, fechados. El módulo nunca se oculta.
+ *  `simulado` = viene de la fake API; se etiqueta en pantalla sin excepción. */
+export type Procedencia = "vivo" | "cache" | "respaldo" | "simulado";
 
 export interface Dato<T> {
   valor: T;
