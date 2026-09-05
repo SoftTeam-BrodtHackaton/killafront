@@ -1,7 +1,7 @@
-import { jpl } from "../cliente.js";
-import * as cache from "../cache.js";
-import respaldo from "../fixtures/jpl-cad.json" with { type: "json" };
-import type { Asteroide, Dato } from "../tipos.js";
+import { jpl, procedenciaInicial } from "../cliente";
+import * as cache from "../cache";
+import respaldo from "../fixtures/jpl-cad.json";
+import type { Asteroide, Dato } from "../tipos";
 
 const CLAVE = "jpl:cad:proximas";
 
@@ -42,7 +42,7 @@ export async function proximasAproximaciones(limite = 5): Promise<Dato<Asteroide
       valor: lista,
       fuente: "JPL CAD",
       capturado: new Date().toISOString(),
-      procedencia: "vivo",
+      procedencia: procedenciaInicial(),
     });
   } catch {
     const viejo = cache.leer<Asteroide[]>(CLAVE);

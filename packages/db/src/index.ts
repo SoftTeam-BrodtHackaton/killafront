@@ -1,2 +1,2 @@
-export * from "./tipos.js";
-export { clienteServidor } from "./servidor.js";
+export * from "./tipos";
+export { clienteServidor } from "./servidor";

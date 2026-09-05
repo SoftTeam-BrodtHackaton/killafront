@@ -1,5 +1,17 @@
-const NASA_BASE = "https://api.nasa.gov";
-const JPL_BASE = "https://ssd-api.jpl.nasa.gov";
+import type { Procedencia } from "./tipos";
+
+const NASA_REAL = "https://api.nasa.gov";
+const JPL_REAL = "https://ssd-api.jpl.nasa.gov";
+
+/** En desarrollo se apunta a apps/fake-api. El código de parseo es el mismo:
+ *  lo único que cambia es la base, así dev y producción recorren la misma ruta. */
+const NASA_BASE = process.env.KILLALAB_NASA_BASE || NASA_REAL;
+const JPL_BASE = process.env.KILLALAB_JPL_BASE || JPL_REAL;
+
+/** true cuando los datos NO vienen de la NASA. La UI está obligada a decirlo. */
+export const esFake = () => NASA_BASE !== NASA_REAL || JPL_BASE !== JPL_REAL;
+
+export const procedenciaInicial = (): Procedencia => (esFake() ? "simulado" : "vivo");
 
 export class ErrorFuente extends Error {
   constructor(public fuente: string, public estado: number | "red", mensaje: string) {

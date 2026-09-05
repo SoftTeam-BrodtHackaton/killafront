@@ -1,7 +1,7 @@
-import { nasa, rango } from "../cliente.js";
-import * as cache from "../cache.js";
-import respaldo from "../fixtures/donki-flr.json" with { type: "json" };
-import type { Dato, Llamarada } from "../tipos.js";
+import { nasa, rango, procedenciaInicial } from "../cliente";
+import * as cache from "../cache";
+import respaldo from "../fixtures/donki-flr.json";
+import type { Dato, Llamarada } from "../tipos";
 
 const CLAVE = "donki:flr:ultima";
 
@@ -45,7 +45,7 @@ export async function ultimaLlamarada(dias = 30): Promise<Dato<Llamarada>> {
       valor: ultima,
       fuente: "DONKI",
       capturado: new Date().toISOString(),
-      procedencia: "vivo",
+      procedencia: procedenciaInicial(),
     });
   } catch {
     const viejo = cache.leer<Llamarada>(CLAVE);

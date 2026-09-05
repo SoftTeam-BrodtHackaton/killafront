@@ -1,12 +1,12 @@
-import { Tema } from "./esquema.js";
-import sistemaSolar from "./nivel-0/sistema-solar.json" with { type: "json" };
-import fasesLuna from "./nivel-0/fases-de-la-luna.json" with { type: "json" };
-import diaYNoche from "./nivel-0/dia-y-noche.json" with { type: "json" };
-import estaciones from "./nivel-0/estaciones.json" with { type: "json" };
-import gravedad from "./nivel-0/gravedad-basica.json" with { type: "json" };
-import elSol from "./nivel-0/el-sol.json" with { type: "json" };
+import { Tema } from "./esquema";
+import sistemaSolar from "./nivel-0/sistema-solar.json";
+import fasesLuna from "./nivel-0/fases-de-la-luna.json";
+import diaYNoche from "./nivel-0/dia-y-noche.json";
+import estaciones from "./nivel-0/estaciones.json";
+import gravedad from "./nivel-0/gravedad-basica.json";
+import elSol from "./nivel-0/el-sol.json";
 
-export * from "./esquema.js";
+export * from "./esquema";
 
 const crudos = [sistemaSolar, fasesLuna, diaYNoche, estaciones, gravedad, elSol];
 
