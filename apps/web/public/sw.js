@@ -1,7 +1,7 @@
 /* Service worker mínimo. Objetivo único: que los niveles 0 y 1 abran en un aula
    sin internet estable. No cachea nada que venga de la NASA. */
 
-const CACHE = "killalab-v1";
+const CACHE = "killalab-v2";
 const SHELL = ["/", "/misiones", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

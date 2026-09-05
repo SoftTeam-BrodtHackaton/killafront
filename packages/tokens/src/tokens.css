@@ -1,42 +1,100 @@
-/* Sistema de diseño KillaLab — origen único de color y forma.
-   Modo claro por defecto: muchos colegios proyectan en aulas iluminadas. */
+/* ============================================================================
+   Sistema de diseño KillaLab — origen único de color, forma y retícula.
+
+   La metáfora no es "una web con secciones": es una HOJA DE REGISTRO de
+   observatorio. Papel milimetrado, un riel de margen donde se anota, y cada
+   cifra puesta sobre una escala con sus marcas. De ahí salen las tres decisiones
+   que gobiernan todo lo demás:
+
+     1. No hay tarjetas. La jerarquía se hace con reglas de un píxel y sangrías,
+        nunca con sombras ni con rellenos grises.
+     2. El radio es de 2px: un canto mecanizado. Ni esquina blanda de SaaS ni
+        cero absoluto de periódico.
+     3. El color aparece por función. Índigo estructura, ámbar acción, turquesa
+        dato. Sin degradados de color en ninguna parte.
+
+   Modo claro por defecto: muchos colegios proyectan en aulas iluminadas y el
+   fondo oscuro se lava.
+   ========================================================================== */
 
 :root {
   color-scheme: light;
 
-  --killa-indigo: #2D2A6E;
-  --killa-indigo-soft: #4A46A8;
-  --killa-ambar: #F0A202;
-  --killa-ambar-soft: #FFC53D;
-  --killa-turquesa: #0E9AA7;
-  --killa-turquesa-soft: #3FBFCB;
+  /* --- Los tres colores, cada uno con un trabajo asignado --- */
+  --killa-indigo: #2d2a6e;        /* estructura: marca, reglas activas, titulares de sección */
+  --killa-indigo-soft: #4a46a8;
+  --killa-ambar: #f0a202;         /* acción: solo donde el usuario puede hacer algo */
+  --killa-ambar-soft: #ffc53d;
+  --killa-turquesa: #0e9aa7;      /* dato: cifras, escalas, enlaces a la fuente */
+  --killa-turquesa-soft: #3fbfcb;
+  /* Turquesa oscurecido para texto pequeño sobre blanco: el de marca no llega a AA a 15px. */
+  --killa-turquesa-texto: #0a7681;
 
-  --bg: #FFFFFF;
-  --bg-elevado: #F3F4F8;
-  --borde: #DFE1EA;
-  --texto: #14142B;
-  --texto-sec: #5A5C78;
+  /* --- Neutros --- */
+  --bg: #ffffff;
+  --bg-elevado: #f6f7fa;
+  --borde: #dfe1ea;
+  --texto: #14142b;
+  --texto-sec: #5a5c78;
 
-  --ok: #12855F;
-  --warn: #D97706;
-  --error: #C0392B;
+  /* --- Semánticos --- */
+  --ok: #12855f;
+  --warn: #b45309;   /* oscurecido respecto al ámbar de marca: aquí sí es texto */
+  --error: #c0392b;
 
-  --radio-s: 4px;
-  --radio-m: 10px;
-  --radio-l: 20px;
+  /* --- La retícula del papel ---
+     Dos tramas superpuestas: la fina cada 8px marca la unidad de espaciado,
+     la gruesa cada 96px marca la columna. No es decoración: es la cuadrícula
+     a la que se alinea todo, hecha visible. */
+  --regla-fina: rgba(45, 42, 110, 0.045);
+  --regla-gruesa: rgba(45, 42, 110, 0.075);
+  --paso-fino: 8px;
+  --paso-grueso: 96px;
+
+  /* --- Forma --- */
+  --radio-s: 1px;
+  --radio-m: 2px;
+  --radio-l: 3px;
+  --regla-peso: 1px;
+  --regla-peso-fuerte: 2px;
+
+  /* --- Ritmo vertical. Todo es múltiplo de 8: la trama fina lo hace visible. --- */
+  --e1: 8px;
+  --e2: 16px;
+  --e3: 24px;
+  --e4: 40px;
+  --e5: 64px;
+  --e6: 96px;
+  --e7: 144px;
+
+  /* --- Rejilla --- */
+  --ancho-medida: 62ch;      /* línea de lectura: por debajo de 68 caracteres */
+  --ancho-hoja: 1240px;
+  --riel: 108px;             /* el margen anotado de la izquierda */
 }
 
 [data-tema="oscuro"] {
   color-scheme: dark;
 
-  --killa-indigo: #A5A0F0;
-  --killa-indigo-soft: #6F6ACB;
-  --killa-ambar: #FFB627;
-  --killa-turquesa: #45C7D4;
+  --killa-indigo: #a5a0f0;
+  --killa-indigo-soft: #6f6acb;
+  --killa-ambar: #ffb627;
+  --killa-ambar-soft: #ffd071;
+  --killa-turquesa: #45c7d4;
+  --killa-turquesa-soft: #7adde7;
+  --killa-turquesa-texto: #6bd6e2;
 
-  --bg: #101024;
-  --bg-elevado: #1A1A38;
-  --borde: #2C2C52;
-  --texto: #EDEDF7;
-  --texto-sec: #A0A2C0;
+  --bg: #0d0d1f;
+  --bg-elevado: #16162f;
+  --borde: #2c2c52;
+  --texto: #edeff7;
+  --texto-sec: #a0a2c0;
+
+  --ok: #3fc78f;
+  --warn: #f0a202;
+  --error: #f2726b;
+
+  /* En oscuro el papel se lee como pizarra: la trama vira a la luz, no a la tinta. */
+  --regla-fina: rgba(165, 160, 240, 0.05);
+  --regla-gruesa: rgba(165, 160, 240, 0.09);
 }

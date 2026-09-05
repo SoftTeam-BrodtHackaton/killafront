@@ -1,43 +1,19 @@
-/** Tokens en TS para consumo desde JS (charts, Expo, generación de OG images).
- *  El origen de verdad para la web es tokens.css; esto lo espeja. */
-
-export const colores = {
-  indigo: "#2D2A6E",
-  indigoSuave: "#4A46A8",
-  ambar: "#F0A202",
-  ambarSuave: "#FFC53D",
-  turquesa: "#0E9AA7",
-  turquesaSuave: "#3FBFCB",
-  bg: "#FFFFFF",
-  bgElevado: "#F3F4F8",
-  borde: "#DFE1EA",
-  texto: "#14142B",
-  textoSec: "#5A5C78",
-  ok: "#12855F",
-  warn: "#D97706",
-  error: "#C0392B",
-} as const;
-
-export const coloresOscuro = {
-  ...colores,
-  indigo: "#A5A0F0",
-  indigoSuave: "#6F6ACB",
-  ambar: "#FFB627",
-  turquesa: "#45C7D4",
-  bg: "#101024",
-  bgElevado: "#1A1A38",
-  borde: "#2C2C52",
-  texto: "#EDEDF7",
-  textoSec: "#A0A2C0",
-} as const;
-
-/** Cada color tiene un trabajo asignado. No se mezclan en gradientes. */
-export const rolDeColor = {
-  estructura: "indigo",
-  accion: "ambar",
-  dato: "turquesa",
-} as const;
-
-export const radios = { s: 4, m: 10, l: 20 } as const;
+/**
+ * Los tokens se consumen como CSS (`@killalab/tokens/tokens.css`). Este módulo
+ * expone lo poco que el TypeScript necesita saber del sistema: nada de colores
+ * sueltos, solo lo que la UI tiene que razonar en tiempo de ejecución.
+ */
 
 export type Tema = "claro" | "oscuro";
+
+export const CLAVE_TEMA = "killa-tema";
+
+/** Espaciado en píxeles. Todo el sistema es múltiplo de 8 y la trama del papel lo dibuja. */
+export const ESPACIADO = { e1: 8, e2: 16, e3: 24, e4: 40, e5: 64, e6: 96, e7: 144 } as const;
+
+/** Los tres colores y su trabajo. Documentado en código para que no se use al revés. */
+export const ROLES_DE_COLOR = {
+  indigo: "estructura: marca, reglas activas, titulares de sección",
+  ambar: "acción: solo donde el usuario puede hacer algo",
+  turquesa: "dato: cifras, escalas y enlaces a la fuente",
+} as const;

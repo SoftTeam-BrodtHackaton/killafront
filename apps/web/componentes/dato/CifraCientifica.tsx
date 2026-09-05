@@ -1,20 +1,29 @@
-/** Único lugar del proyecto que aplica la tipografía monoespaciada.
- *  Si un número aparece en pantalla sin pasar por aquí, es un bug de diseño. */
+/**
+ * El único sitio del proyecto que aplica la tipografía monoespaciada.
+ * Si un número aparece en pantalla sin pasar por aquí, es un error de diseño.
+ *
+ * `lectura` es el tamaño de instrumento: se usa una sola vez por pantalla, en la
+ * cifra que da sentido a todo lo demás.
+ */
 export default function CifraCientifica({
   valor,
   unidad,
-  destacada = false,
+  tamano = "normal",
+  className = "",
 }: {
   valor: string | number;
   unidad?: string;
-  destacada?: boolean;
+  tamano?: "lectura" | "normal" | "min";
+  className?: string;
 }) {
+  const clase = { lectura: "t-lectura", normal: "t-cifra", min: "t-cifra-min" }[tamano];
+
   return (
-    <span
-      className={`font-dato tabular-nums ${destacada ? "text-turquesa text-[22px] font-semibold" : "text-[15px] font-medium"}`}
-    >
+    <span className={`${clase} text-turquesa-texto ${className}`}>
       {valor}
-      {unidad ? <span className="text-tinta-sec"> {unidad}</span> : null}
+      {unidad ? (
+        <span className="t-cifra-min ml-1 text-tinta-sec">{unidad}</span>
+      ) : null}
     </span>
   );
 }

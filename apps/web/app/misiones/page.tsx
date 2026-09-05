@@ -1,49 +1,70 @@
 import Link from "next/link";
-import { NIVELES, temasPorNivel } from "@killalab/content";
-import Badge from "@/componentes/ui/Badge";
+import { killalab } from "@killalab/composicion";
+import Registro from "@/componentes/layout/Registro";
+import Marca from "@/componentes/ui/Marca";
 
 /** Estático: los niveles 0 y 1 tienen que abrir sin red. */
 export const dynamic = "force-static";
 
-export const metadata = { title: "Misiones — KillaLab" };
+export const metadata = { title: "Misiones" };
 
 export default function Misiones() {
+  const niveles = killalab.niveles();
+  const total = niveles.reduce((n, x) => n + x.temas.length, 0);
+
   return (
-    <div className="seccion">
-      <div className="contenedor">
-        <h1 className="t-h1 text-tinta">Misiones</h1>
-        {NIVELES.map((n) => {
-          const temas = temasPorNivel(n.id);
-          return (
-            <section key={n.id} className="mt-12">
-              <h2 className="t-h3 text-indigo">
-                Nivel {n.id} · {n.nombre}
-              </h2>
-              <p className="mt-1 text-[15px] text-tinta-sec">{n.publico}</p>
-              {temas.length === 0 ? (
-                <p className="font-dato mt-4 text-[13px] text-tinta-sec">
-                  contenido en producción
-                </p>
-              ) : (
-                <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {temas.map((t) => (
-                    <li key={t.slug} className="rounded-l border border-borde p-5">
-                      <Link href={`/misiones/${t.nivel}/${t.slug}`} className="font-display text-lg font-semibold text-tinta hover:text-indigo">
-                        {t.titulo}
-                      </Link>
-                      <p className="mt-2 text-[15px] text-tinta-sec">{t.resumen}</p>
-                      <div className="mt-4 flex items-center gap-3">
-                        <Badge>{t.duracionMin} min</Badge>
-                        {t.offline ? <Badge>sin conexión</Badge> : <Badge tono="dato">datos NASA</Badge>}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          );
-        })}
-      </div>
+    <div className="hoja">
+      <section className="registro">
+        <p className="margen">catálogo</p>
+        <div>
+          <h1 className="t-masthead text-tinta">Misiones</h1>
+          <p className="t-cuerpo medida mt-e3 text-tinta-sec">
+            Cada misión es un reto por pasos sobre un tema. Al terminarla se arma sola su mazo de
+            tarjetas y sus nodos en el mapa del planeta.
+          </p>
+          <p className="t-cifra-min mt-e3 text-tinta-sec">
+            {total} publicadas de un plan de cuatro niveles
+          </p>
+        </div>
+      </section>
+
+      {niveles.map(({ nivel, temas }) => (
+        <Registro key={nivel.id} anotacion={`nivel ${nivel.id}, ${nivel.edades}`}>
+          <div className="flex flex-wrap items-baseline gap-e2">
+            <h2 className="t-titulo text-indigo">{nivel.nombre}</h2>
+            <Marca tono={nivel.requiereApi ? "dato" : "neutro"}>
+              {nivel.requiereApi ? "usa datos de la NASA" : "funciona sin conexión"}
+            </Marca>
+          </div>
+          <p className="t-cuerpo medida mt-e2 text-tinta-sec">{nivel.hace}</p>
+
+          {temas.length === 0 ? (
+            <p className="t-apoyo mt-e3 border-t border-borde pt-e2 text-tinta-sec">
+              Este nivel está en producción. Los niveles 0 y 1 se publican primero porque no
+              dependen de ninguna API.
+            </p>
+          ) : (
+            <ul className="mt-e3">
+              {temas.map((t) => (
+                <li key={t.slug} className="border-t border-borde">
+                  <Link
+                    href={`/misiones/${t.nivel}/${t.slug}`}
+                    className="group grid items-baseline gap-x-e3 gap-y-1 py-e3 sm:grid-cols-12"
+                  >
+                    <h3 className="t-subtitulo text-tinta transition-colors group-hover:text-indigo sm:col-span-4">
+                      {t.titulo}
+                    </h3>
+                    <p className="t-apoyo text-tinta-sec sm:col-span-6">{t.resumen}</p>
+                    <p className="t-cifra-min text-tinta-sec sm:col-span-2 sm:text-right">
+                      {t.duracionMin} min, {t.pasos.length} pasos
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Registro>
+      ))}
     </div>
   );
 }

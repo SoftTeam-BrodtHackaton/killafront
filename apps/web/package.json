@@ -10,14 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@killalab/api": "workspace:*",
-    "@killalab/content": "workspace:*",
-    "@killalab/db": "workspace:*",
+    "@killalab/composicion": "workspace:*",
+    "@killalab/dominio": "workspace:*",
     "@killalab/tokens": "workspace:*",
     "next": "^15.5.2",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "zod": "^4.1.5"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",

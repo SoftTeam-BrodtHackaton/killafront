@@ -7,20 +7,34 @@ import "./globals.css";
 
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--fuente-display", weight: ["600", "700", "800"] });
 const cuerpo = Atkinson_Hyperlegible({ subsets: ["latin"], variable: "--fuente-cuerpo", weight: ["400", "700"] });
-const dato = IBM_Plex_Mono({ subsets: ["latin"], variable: "--fuente-dato", weight: ["400", "500", "600"] });
+const dato = IBM_Plex_Mono({ subsets: ["latin"], variable: "--fuente-dato", weight: ["400", "500"] });
 
 export const metadata: Metadata = {
-  title: "KillaLab — ciencia espacial con datos reales de la NASA",
+  title: {
+    default: "KillaLab, ciencia espacial con datos reales de la NASA",
+    template: "%s — KillaLab",
+  },
   description:
-    "Plataforma educativa peruana. Cada cifra que ves viene de una API pública y muestra su fuente. Gratis para estudiantes.",
+    "Plataforma educativa peruana. Cada cifra que ves viene de una API pública y muestra su fuente y su fecha. Gratis para estudiantes.",
   manifest: "/manifest.webmanifest",
-  openGraph: { locale: "es_PE", type: "website" },
+  icons: {
+    icon: [{ url: "/marca/glifo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/marca/icono.svg" }],
+  },
+  openGraph: { locale: "es_PE", type: "website", siteName: "KillaLab" },
 };
 
-export const viewport: Viewport = { themeColor: "#2D2A6E", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#0D0D1F" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
-/* Evita el parpadeo de tema: corre antes de pintar, respeta prefers-color-scheme
-   en la primera visita y la preferencia guardada después. */
+/* Corre antes de pintar para que no parpadee el tema: respeta prefers-color-scheme
+   en la primera visita y la preferencia guardada de ahí en adelante. */
 const guionTema = `(function(){try{var t=localStorage.getItem("killa-tema");if(!t){t=matchMedia("(prefers-color-scheme: dark)").matches?"oscuro":"claro"}document.documentElement.setAttribute("data-tema",t)}catch(e){}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -29,8 +43,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: guionTema }} />
       </head>
-      <body className={`${display.variable} ${cuerpo.variable} ${dato.variable}`}>
-        <a href="#contenido" className="sr-only focus:not-sr-only">Saltar al contenido</a>
+      <body className={`${display.variable} ${cuerpo.variable} ${dato.variable} papel`}>
+        <a
+          href="#contenido"
+          className="sr-only rounded-m bg-ambar px-e2 py-1 text-[#14142B] focus:not-sr-only focus:absolute focus:left-e2 focus:top-e2 focus:z-50"
+        >
+          Saltar al contenido
+        </a>
         <Nav />
         <main id="contenido">{children}</main>
         <Pie />

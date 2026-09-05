@@ -1,13 +1,21 @@
-export const metadata = { title: "Notas — KillaLab" };
+import Mural from "@/componentes/notas/Mural";
 
-export default function Pagina() {
+export const metadata = { title: "Notas" };
+
+export default function PaginaNotas() {
   return (
-    <div className="seccion">
-      <div className="contenedor">
-        <h1 className="t-h1 text-tinta">Notas</h1>
-        <p className="medida mt-4 text-tinta-sec">Tu mural de hallazgos.</p>
-        <p className="font-dato mt-8 text-[13px] text-tinta-sec">en construcción</p>
-      </div>
+    <div className="hoja">
+      <section className="registro">
+        <p className="margen">tu bitácora</p>
+        <div>
+          <h1 className="t-masthead text-tinta">Notas</h1>
+          <p className="t-cuerpo medida mt-e3 text-tinta-sec">
+            Lo que vas anotando mientras resuelves misiones. Se guarda en este navegador; cuando
+            entres con tu cuenta viajará contigo.
+          </p>
+          <Mural />
+        </div>
+      </section>
     </div>
   );
 }

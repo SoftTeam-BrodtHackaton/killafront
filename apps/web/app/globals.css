@@ -12,6 +12,7 @@
   --color-ambar-suave: var(--killa-ambar-soft);
   --color-turquesa: var(--killa-turquesa);
   --color-turquesa-suave: var(--killa-turquesa-soft);
+  --color-turquesa-texto: var(--killa-turquesa-texto);
 
   --color-lienzo: var(--bg);
   --color-elevado: var(--bg-elevado);
@@ -30,22 +31,199 @@
   --font-display: var(--fuente-display);
   --font-cuerpo: var(--fuente-cuerpo);
   --font-dato: var(--fuente-dato);
+
+  --spacing-e1: var(--e1);
+  --spacing-e2: var(--e2);
+  --spacing-e3: var(--e3);
+  --spacing-e4: var(--e4);
+  --spacing-e5: var(--e5);
+  --spacing-e6: var(--e6);
+  --spacing-e7: var(--e7);
 }
+
+/* ==========================================================================
+   1. El papel
+   ========================================================================== */
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--texto);
   font-family: var(--fuente-cuerpo);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* El blanco es el 70% de cualquier pantalla: las secciones respiran por defecto. */
-.seccion { padding-block: clamp(3rem, 8vw, 6rem); }
-.contenedor { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+/* La trama milimetrada. Son líneas de un píxel con corte duro, no un degradado:
+   el sistema prohíbe el degradado como decoración de color, y esto es el rayado
+   del papel. La trama fina dibuja la unidad de 8px; la gruesa, la columna. */
+.papel {
+  background-image:
+    linear-gradient(to right, var(--regla-gruesa) 1px, transparent 1px),
+    linear-gradient(to right, var(--regla-fina) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--regla-fina) 1px, transparent 1px);
+  background-size:
+    var(--paso-grueso) 100%,
+    var(--paso-fino) 100%,
+    100% var(--paso-fino);
+  background-position: 0 0;
+}
 
-:focus-visible { outline: 2px solid var(--killa-turquesa); outline-offset: 3px; border-radius: var(--radio-s); }
+/* ==========================================================================
+   2. La hoja y su riel de margen
+
+   Cada bloque de la página es una `.hoja`: una rejilla de dos columnas donde la
+   primera es el margen anotado del cuaderno y la segunda es el registro. En
+   móvil el riel desaparece y la anotación pasa a ir sobre el contenido.
+   ========================================================================== */
+
+.hoja {
+  width: min(var(--ancho-hoja), 100% - var(--e4));
+  margin-inline: auto;
+}
+
+.registro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e2);
+  padding-block: var(--e5);
+  border-top: var(--regla-peso) solid var(--borde);
+}
+
+.registro:first-of-type { border-top: 0; }
+
+/* Un hijo de grid no encoge por debajo de su contenido salvo que se le diga.
+   Sin esto, un elemento ancho —el SVG del mapa mental— estira la columna y saca
+   scroll horizontal a la página entera en vez de desplazarse dentro de su caja. */
+.registro > * { min-width: 0; }
+
+@media (min-width: 900px) {
+  .registro {
+    grid-template-columns: var(--riel) minmax(0, 1fr);
+    gap: var(--e4);
+    padding-block: var(--e6);
+  }
+}
+
+/* El margen: la anotación va arriba del todo, alineada a la línea base del
+   título que acompaña, con una marca de regla que la ata a la retícula. */
+.margen {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e1);
+  color: var(--texto-sec);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.margen::before {
+  content: "";
+  flex: none;
+  width: var(--e2);
+  height: var(--regla-peso-fuerte);
+  background: var(--killa-indigo);
+  translate: 0 -0.3em;
+}
+
+@media (min-width: 900px) {
+  .margen {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--e1);
+    position: sticky;
+    top: var(--e4);
+    align-self: start;
+  }
+  .margen::before { translate: 0; }
+}
+
+/* ==========================================================================
+   3. Instrumentos
+
+   Lo único que se recuadra en todo el sitio es una lectura de instrumento: un
+   dato con su fuente. Nada más lleva marco. Un panel = un dato verificable.
+   ========================================================================== */
+
+.instrumento {
+  border: var(--regla-peso) solid var(--borde);
+  border-left: var(--regla-peso-fuerte) solid var(--killa-turquesa);
+  border-radius: var(--radio-m);
+  background: var(--bg);
+  padding: var(--e3);
+}
+
+@media (min-width: 640px) {
+  .instrumento { padding: var(--e4); }
+}
+
+/* La escala del instrumento: una regla con sus marcas y un cursor en la lectura.
+   Es el recurso visual que se repite en todo el sitio — clase solar, niveles,
+   distancias — porque medir es de lo que trata el producto. */
+.escala {
+  position: relative;
+  height: var(--e2);
+  border-top: var(--regla-peso-fuerte) solid var(--borde);
+}
+
+.escala__marca {
+  position: absolute;
+  top: calc(var(--regla-peso-fuerte) * -1);
+  width: var(--regla-peso);
+  height: var(--e1);
+  background: var(--texto-sec);
+}
+
+.escala__cursor {
+  position: absolute;
+  top: calc(var(--e1) * -1);
+  width: 3px;
+  height: calc(var(--e3) + var(--e1));
+  background: var(--killa-turquesa);
+  translate: -50% 0;
+}
+
+/* El único movimiento no pedido por el usuario en toda la página: el cursor
+   recorre la escala una vez al cargar y se queda quieto. Sirve para que se lea
+   como una medición, no como un adorno. */
+@keyframes recorrer-escala {
+  from { opacity: 0; left: 0; }
+  to { opacity: 1; }
+}
+
+.escala__cursor--anima {
+  animation: recorrer-escala 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ==========================================================================
+   4. Reglas horizontales con función
+   ========================================================================== */
+
+.regla-seccion { border-top: var(--regla-peso) solid var(--borde); }
+.regla-viva { border-top: var(--regla-peso-fuerte) solid var(--killa-indigo); }
+
+/* ==========================================================================
+   5. Accesibilidad y base
+   ========================================================================== */
+
+:focus-visible {
+  outline: var(--regla-peso-fuerte) solid var(--killa-turquesa);
+  outline-offset: 3px;
+  border-radius: var(--radio-s);
+}
+
+a { color: inherit; }
+
+::selection {
+  background: var(--killa-ambar-soft);
+  color: #14142b;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

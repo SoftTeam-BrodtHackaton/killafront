@@ -1,23 +1,33 @@
+import Registro from "@/componentes/layout/Registro";
 import { BotonEnlace } from "@/componentes/ui/Boton";
 
 export default function Docentes() {
   return (
-    <section className="seccion border-t border-borde bg-elevado">
-      <div className="contenedor">
-        <h2 className="t-h2 text-tinta">Para docentes y colegios</h2>
-        <p className="medida mt-3 text-tinta-sec">
-          Asigna misiones a tu aula, sigue el avance por estudiante y proyecta el dato del día
-          al empezar la clase. Los niveles 0 y 1 funcionan aunque el internet del colegio no.
-        </p>
-        <p className="medida mt-3 text-[15px] text-tinta-sec">
-          KillaLab opera sin fines de lucro: los ingresos por licencias institucionales se
-          reinvierten en producción de contenido, infraestructura y becas. El acceso individual
-          para estudiantes es gratuito y permanente.
-        </p>
-        <div className="mt-8">
-          <BotonEnlace href="/docentes" variante="primario">Llevar KillaLab a mi colegio</BotonEnlace>
+    <Registro anotacion="para el aula">
+      <div className="grid gap-e4 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <h2 className="t-titulo text-tinta">Para docentes y colegios</h2>
+          <p className="t-cuerpo medida mt-e2 text-tinta-sec">
+            Asignas misiones a tu aula, sigues el avance por estudiante y proyectas el dato del día
+            al empezar la clase. Los niveles 0 y 1 funcionan aunque el internet del colegio no.
+          </p>
+          <div className="mt-e4">
+            <BotonEnlace href="/docentes" variante="secundario">
+              Llevar KillaLab a mi colegio
+            </BotonEnlace>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5">
+          <blockquote className="border-l-2 border-ambar pl-e3">
+            <p className="t-cuerpo text-tinta">
+              KillaLab opera sin fines de lucro. Los ingresos por licencias institucionales se
+              reinvierten en producción de contenido, infraestructura y becas. El acceso individual
+              para estudiantes es gratuito y permanente.
+            </p>
+          </blockquote>
         </div>
       </div>
-    </section>
+    </Registro>
   );
 }

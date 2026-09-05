@@ -1,25 +1,25 @@
-import Hero from "@/componentes/landing/Hero";
-import Niveles from "@/componentes/landing/Niveles";
+import Masthead from "@/componentes/landing/Masthead";
+import EjeDeNiveles from "@/componentes/landing/EjeDeNiveles";
 import Formatos from "@/componentes/landing/Formatos";
 import Comunidades from "@/componentes/landing/Comunidades";
-import Certificados from "@/componentes/landing/Certificados";
+import Credenciales from "@/componentes/landing/Credenciales";
 import Docentes from "@/componentes/landing/Docentes";
 import Aliados from "@/componentes/landing/Aliados";
 
-/** El dato en vivo se refresca cada 15 minutos; el resto de la página es estático.
- *  Así el SEO no depende de la latencia de la NASA. */
+/** La lectura solar se refresca cada quince minutos; el resto de la página es
+ *  estático. Así el SEO no depende de la latencia de la NASA. */
 export const revalidate = 900;
 
-export default function Landing() {
+export default function Portada() {
   return (
-    <>
-      <Hero />
-      <Niveles />
+    <div className="hoja">
+      <Masthead />
+      <EjeDeNiveles />
       <Formatos />
       <Comunidades />
-      <Certificados />
+      <Credenciales />
       <Docentes />
       <Aliados />
-    </>
+    </div>
   );
 }
