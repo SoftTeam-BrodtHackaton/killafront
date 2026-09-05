@@ -23,6 +23,9 @@ quien sí se engancha no conoce las comunidades técnicas a las que podría acer
 4. **Mapa mental** del planeta recorrido.
 5. **Directorio de grupos estudiantiles** reales (8–12 entradas verificadas).
 
+> El directorio se publica vacío hasta tener entradas reales con contacto verificado.
+> Sembrarlo con nombres inventados sería lo contrario de lo que promete el producto.
+
 **Hoja de ruta:** app nativa Expo, podcast semanal por TTS, video corto vertical,
 badges Credly Open Badges 3.0, tabla de posiciones entre colegios.
 
@@ -40,16 +43,22 @@ proyección en aula y un sistema tipográfico exigente, y React Native Web rinde
 | Web (MVP) | Next.js 15 App Router · React 19 · TypeScript · Tailwind v4 · PWA instalable con offline para Nivel 0/1 |
 | Nativo (hoja de ruta) | Expo SDK 54 + Expo Router, reutilizando `packages/` sin reescribir el núcleo |
 | Tipografías | Bricolage Grotesque · Atkinson Hyperlegible · IBM Plex Mono |
-| Backend | Route Handlers de Next.js como BFF |
-| Datos | Supabase — Postgres + Auth + RLS |
+| Arquitectura | Puertos y adaptadores (hexagonal): `dominio` sin dependencias, `adaptadores`, `composicion` |
+| Backend | Route Handlers de Next.js como BFF + backend propio del equipo (repo aparte) |
+| Contenido | JSON versionado en el repo, validado con zod al importar |
 | APIs externas | NASA **DONKI**, **NeoWs**, **JPL CAD** |
 | IA | Claude en pipeline offline: genera misiones y tarjetas desde el JSON del tema |
-| Deploy | Vercel + Supabase gestionado |
+| Deploy | Vercel |
 
 **Dos reglas de datos que el código obliga a cumplir:**
-- Ninguna cifra se muestra sin su fuente. `EtiquetaFuente` recibe `fuente` como prop requerida.
-- Si una API falla, se sirve el último dato conocido **con su fecha**. El módulo no se
-  oculta y jamás se inventa un valor. Ver `packages/api/src/nasa/donki.ts`.
+- Ninguna cifra se muestra sin su fuente. `EtiquetaFuente` recibe `fuente` como prop
+  requerida, así que el tipo hace imposible olvidarla.
+- Si una fuente falla, se sirve el último dato conocido **con su fecha**. El módulo no
+  se oculta y jamás se inventa un valor. La cadena `vivo → caché → respaldo` es política
+  de dominio, no un `try/catch` del cliente HTTP: vive en
+  `packages/dominio/src/casos-uso/observar-clima-espacial.ts` y se puede probar sin red.
+
+Detalle completo en [`docs/arquitectura.md`](docs/arquitectura.md).
 
 ---
 
@@ -63,8 +72,10 @@ cp .env.example .env.local     # NASA_API_KEY basta con DEMO_KEY para desarrollo
 pnpm dev                       # http://localhost:3000
 ```
 
-Sin claves, la app arranca igual: los niveles 0 y 1 no usan red y el héroe cae a los
-fixtures de `packages/api/src/fixtures`.
+Sin claves ni internet, la app arranca igual: `pnpm dev` levanta también
+`apps/fake-api` en el puerto 4000, y todo dato que venga de ahí sale etiquetado en
+pantalla como simulado. Si además se apaga la fake API, el héroe cae a los respaldos
+fechados de `packages/adaptadores/src/nasa/respaldos/`.
 
 Otros comandos: `pnpm build`, `pnpm typecheck`, `pnpm lint` (Turborepo los propaga a todos
 los paquetes).
@@ -74,14 +85,15 @@ los paquetes).
 ## Estructura
 
 ```
-apps/web        Next.js 15 — landing y plataforma (MVP)
-apps/native     Expo — hoja de ruta
-packages/tokens Sistema de diseño: color, tipografía, radios
-packages/api    NASA DONKI · NeoWs · JPL CAD + política de caché y respaldo
-packages/db     Supabase: clientes y tipos
-packages/content Temas de Nivel 0 y 1 en JSON + validación zod
-supabase/       Migraciones SQL
-docs/           Arquitectura, arquitectura de frontend, flujo de git
+apps/web              Next.js 15 — landing y plataforma (MVP)
+apps/fake-api         Imita DONKI/NeoWs/CAD para desarrollar sin llave ni internet
+apps/native           Expo — hoja de ruta
+packages/dominio      Modelo, puertos y casos de uso. Cero dependencias
+packages/adaptadores  NASA, catálogo JSON, caché, reloj, backend HTTP
+packages/composicion  Raíz de composición: cablea puertos con adaptadores
+packages/tokens       Sistema de diseño: color, tipografía, retícula
+packages/content      Temas de Nivel 0 y 1 en JSON crudo
+docs/                 Arquitectura, arquitectura de frontend, flujo de git
 ```
 
 ---

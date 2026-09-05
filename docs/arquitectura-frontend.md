@@ -23,15 +23,17 @@ flowchart TB
     N["apps/native<br/>Expo SDK 54 · hoja de ruta"]
   end
   subgraph packages
-    TK["tokens<br/>color · tipografía · radios"]
-    AP["api<br/>DONKI · NeoWs · JPL CAD"]
-    DB["db<br/>Supabase · tipos · RLS"]
-    CT["content<br/>Nivel 0/1 · esquema zod"]
+    TK["tokens<br/>color · tipografía · retícula"]
+    CO["composicion<br/>raíz de composición"]
+    DO["dominio<br/>puertos · casos de uso"]
+    AD["adaptadores<br/>NASA · JSON · caché · backend"]
   end
-  W --> TK & AP & DB & CT
-  N -.-> TK & AP & DB & CT
-  AP --> EXT["APIs NASA / JPL"]
-  DB --> SB["Supabase"]
+  W --> TK & CO
+  N -.-> TK & CO
+  CO --> DO & AD
+  AD -.implementa.-> DO
+  AD --> EXT["APIs NASA / JPL"]
+  AD --> BK["backend propio<br/>(repo del equipo)"]
 ```
 
 ## Árbol del proyecto
@@ -50,21 +52,24 @@ killalab/
 │   │   │   ├── notas/ comunidades/ docentes/ perfil/
 │   │   │   └── api/eventos/route.ts  # BFF: oculta la API key
 │   │   ├── componentes/
-│   │   │   ├── ui/                   # Boton · Tarjeta · Badge
+│   │   │   ├── marca/                # Glifo · Lockup
+│   │   │   ├── medida/               # Escala: la regla graduada del sistema
+│   │   │   ├── ui/                   # Boton · Marca
 │   │   │   ├── dato/                 # ← capa crítica (ver abajo)
 │   │   │   ├── layout/               # Nav · Pie · ConmutadorTema · RegistroSW
 │   │   │   ├── landing/              # una carpeta = una sección del wireframe
-│   │   │   ├── misiones/ formatos/ comunidad/
+│   │   │   ├── misiones/ notas/ mapa/
 │   │   ├── lib/formato.ts            # cifras, fechas relativas en es-PE
 │   │   ├── public/                   # manifest.webmanifest · sw.js · iconos
 │   │   └── next.config.ts
+│   ├── fake-api/                     # imita DONKI/NeoWs/CAD, provoca fallos a voluntad
 │   └── native/                       # Expo, post-MVP
 ├── packages/
-│   ├── tokens/   tokens.css · tipografia.css · index.ts
-│   ├── api/      cliente · cache · nasa/{donki,neows,cad} · fixtures/
-│   ├── db/       cliente · servidor · tipos
-│   └── content/  esquema.ts · nivel-0/*.json · nivel-1/*.json
-├── supabase/migraciones/0001_esquema_inicial.sql
+│   ├── dominio/      modelo/ · puertos/ · casos-uso/    ← cero dependencias
+│   ├── adaptadores/  nasa/ · contenido/ · persistencia/ · plataforma/ · sistema/
+│   ├── composicion/  index.ts: la única lectura de process.env del repo
+│   ├── tokens/       tokens.css · tipografia.css · index.ts
+│   └── content/      nivel-0/*.json · nivel-1/*.json    ← dato crudo, sin lógica
 ├── docs/
 └── turbo.json · pnpm-workspace.yaml · tsconfig.base.json
 ```
@@ -81,11 +86,13 @@ ser tipos que no compilan sin cumplirse:
   este componente es un bug de diseño, detectable con un grep.
 - `EtiquetaFuente` recibe `fuente` como prop **requerida**. No hay forma de renderizar
   un dato sin decir de dónde salió.
-- `AvisoCache` convierte el fallo de la API en contenido: `vivo` / `último dato conocido` /
-  `dato de respaldo`, siempre con fecha y siempre con texto además del color.
+- `AvisoProcedencia` convierte el fallo de la fuente en contenido: `en vivo` / `último
+  dato conocido` / `dato de respaldo` / `datos simulados`, siempre con fecha, siempre con
+  texto y con una marca de forma distinta por caso, nunca solo por color.
 
-La política de degradación vive en `packages/api`, no en la UI: `ultimaLlamarada()` nunca
-lanza. Devuelve dato vivo, caché vencida o fixture, y declara cuál de los tres es.
+La política de degradación vive en `packages/dominio`, no en la UI ni en el cliente HTTP:
+`killalab.ultimaLlamarada()` nunca lanza. Devuelve dato vivo, caché vencida o respaldo, y
+declara cuál de los tres es. Ver [`arquitectura.md`](./arquitectura.md).
 
 ## Estrategia de render por ruta
 
@@ -108,5 +115,6 @@ inline antes del primer pintado para que no haya parpadeo.
 
 Reglas de accesibilidad ya aplicadas en los componentes:
 - El ámbar nunca es texto sobre blanco (no llega a AA): solo relleno de botón con tinta encima.
-- Ningún estado se comunica solo por color; `Badge` y `AvisoCache` siempre llevan texto.
+- Ningún estado se comunica solo por color; `Marca` y `AvisoProcedencia` siempre llevan
+  texto, y la procedencia lleva además una marca de forma distinta por caso.
 - Foco visible en turquesa, `prefers-reduced-motion` respetado en `globals.css`.

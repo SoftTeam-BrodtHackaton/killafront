@@ -1,122 +1,79 @@
-# Arquitectura — KillaLab
+# Arquitectura
 
-Detalle de frontend en [arquitectura-frontend.md](./arquitectura-frontend.md).
-
-## Módulos y comunicación
-
-```mermaid
-flowchart TB
-  subgraph CL["Cliente — navegador / proyector de aula"]
-    LP["Landing publica<br/>hero con dato en vivo"]
-    MI["Misiones<br/>niveles 0-3"]
-    FM["Formatos<br/>tarjetas · mapa · notas"]
-    DIR["Directorio de<br/>grupos estudiantiles"]
-  end
-
-  subgraph BFF["apps/web — Route Handlers"]
-    RE["/api/eventos<br/>normaliza y cachea"]
-    RP["/api/progreso<br/>autenticado"]
-  end
-
-  subgraph PK["packages/"]
-    AP["api<br/>fetchers + degradacion"]
-    CT["content<br/>Nivel 0/1 offline"]
-    DBP["db<br/>clientes Supabase"]
-    TK["tokens"]
-  end
-
-  subgraph SB["Supabase"]
-    PG[("Postgres + RLS")]
-    AU["Auth"]
-  end
-
-  subgraph EXT["Fuentes externas"]
-    DONKI["NASA DONKI"]
-    NEO["NASA NeoWs"]
-    CAD["JPL CAD"]
-  end
-
-  LP --> RE
-  MI --> CT
-  MI --> RP
-  FM --> RP
-  DIR --> DBP
-
-  RE --> AP
-  AP --> DONKI & NEO & CAD
-  AP -->|"fixtures de respaldo"| FX["fixtures/*.json"]
-  RE -->|"cachea"| PG
-  RP --> DBP --> PG
-  RP --> AU
-  LP --> TK
-```
-
-## Flujo crítico: el dato en vivo del héroe
-
-Es la promesa del producto, así que su ruta de fallo está definida antes que la feliz.
-
-```mermaid
-sequenceDiagram
-  participant U as Visitante
-  participant N as Next.js (SSR)
-  participant C as Cache
-  participant D as NASA DONKI
-
-  U->>N: GET /
-  N->>C: ultima llamarada (TTL 15 min)
-  alt cache fresco
-    C-->>N: dato · procedencia "vivo"
-  else cache vencido
-    N->>D: GET /DONKI/FLR
-    alt DONKI responde
-      D-->>N: evento real
-      N->>C: guarda
-    else DONKI falla o agota cuota
-      C-->>N: ultimo conocido · procedencia "cache"
-      Note over N: si no hay nada en cache,<br/>usa fixtures · procedencia "respaldo"
-    end
-  end
-  N-->>U: HTML con cifra en mono + "fuente: NASA DONKI" + estado fechado
-```
-
-El módulo nunca se oculta ni muestra un placeholder vacío: o hay dato fresco, o hay dato
-viejo fechado. Los niveles 0 y 1 no tocan este flujo en absoluto.
-
-## Esquema de base de datos
-
-SQL ejecutable en [`supabase/migraciones/0001_esquema_inicial.sql`](../supabase/migraciones/0001_esquema_inicial.sql).
-
-```mermaid
-erDiagram
-  USUARIO ||--o{ PROGRESO : registra
-  USUARIO ||--o{ NOTA : escribe
-  USUARIO }o--o{ TRIPULACION : integra
-  TRIPULACION }o--|| ESTACION : pertenece
-  TEMA ||--o{ PROGRESO : evalua
-  EVENTO_CACHE }o--|| FUENTE : proviene
-
-  USUARIO { uuid id text rol timestamptz creado }
-  ESTACION { uuid id text colegio text region }
-  TRIPULACION { uuid id text nombre uuid estacion_id }
-  TEMA { text slug int nivel text titulo bool offline }
-  PROGRESO { uuid id uuid usuario_id text tema_slug text paso_id bool acierto int intentos }
-  NOTA { uuid id uuid usuario_id text texto real x real y }
-  EVENTO_CACHE { uuid id text clave text fuente jsonb payload timestamptz capturado }
-  GRUPO_ESTUDIANTIL { uuid id text nombre text institucion text area text contacto bool verificado }
-  FUENTE { text codigo text nombre text url }
-```
-
-Los temas viven como JSON versionado en `packages/content`, no en Postgres: así el
-Nivel 0 se sirve estático y funciona sin conexión. Postgres solo guarda lo que es del
-usuario (progreso, notas) y lo compartido (directorio, caché).
-
-## Despliegue
+KillaLab sigue **puertos y adaptadores** (arquitectura hexagonal). El dominio
+declara qué necesita del mundo; los adaptadores lo implementan; una raíz de
+composición decide cuál se enchufa.
 
 ```mermaid
 flowchart LR
-  GH["GitHub<br/>develop → main"] --> VC["Vercel<br/>preview por PR"]
-  VC --> EDGE["SSR + ISR"]
-  EDGE --> SBX["Supabase"]
-  EDGE --> NASA["APIs NASA / JPL"]
-  FX["packages/api/src/fixtures<br/>respaldo de demo"] --> VC
+  web["apps/web<br/>Next.js 15"] --> comp["@killalab/composicion<br/>raíz de composición"]
+  comp --> dom["@killalab/dominio<br/>modelo · puertos · casos de uso"]
+  comp --> ada["@killalab/adaptadores"]
+  ada -.implementa.-> dom
+  ada --> nasa["DONKI · NeoWs · JPL CAD"]
+  ada --> json["@killalab/content<br/>JSON versionado"]
+  ada --> back["backend propio<br/>(repo del equipo)"]
 ```
+
+La flecha va en un solo sentido. **Una pantalla que importe
+`@killalab/adaptadores` rompe el diseño**, porque sería la UI dependiendo de que
+la fuente sea la NASA y no otra cosa.
+
+## Los paquetes
+
+| Paquete | Qué contiene | Puede depender de |
+|---|---|---|
+| `dominio` | modelo, puertos, casos de uso | **nada** |
+| `adaptadores` | NASA, catálogo JSON, caché, reloj, backend HTTP | `dominio`, `content`, `zod` |
+| `composicion` | cablea puertos con adaptadores según entorno | `dominio`, `adaptadores` |
+| `tokens` | CSS del sistema de diseño | nada |
+| `content` | JSON crudo de los temas, sin lógica | nada |
+
+Si algo del dominio necesita salir al mundo, es un puerto nuevo, no un import.
+
+## Los puertos
+
+| Puerto | Lo implementa hoy |
+|---|---|
+| `PuertoClimaEspacial` | DONKI, o `apps/fake-api` en desarrollo |
+| `PuertoAsteroides` | JPL CAD y NeoWs |
+| `PuertoRespaldo` | respuestas guardadas en `adaptadores/src/nasa/respaldos/` |
+| `PuertoAlmacenTemporal` | caché en memoria del proceso |
+| `PuertoCatalogo` | JSON de `@killalab/content`, validado con zod al importar |
+| `PuertoProgreso`, `PuertoDirectorio` | backend propio por HTTP, o dobles locales |
+| `PuertoReloj` | `new Date()` |
+
+## Degradación de datos
+
+La política vive en el dominio
+(`dominio/src/casos-uso/observar-clima-espacial.ts`), no en el cliente HTTP:
+
+```
+vivo → caché fresco → caché vencido → respaldo en disco
+```
+
+Los adaptadores **lanzan** cuando la fuente falla. Qué hacer con esa falla lo
+decide el caso de uso. Por eso se puede probar la cadena entera con puertos
+falsos, sin red y sin la NASA.
+
+Ninguna pantalla se rompe ni se oculta: se muestra el último dato conocido, con su
+fecha y su etiqueta de procedencia.
+
+## El backend
+
+Lo construye el equipo en un repo aparte. Entra por `PuertoProgreso` y
+`PuertoDirectorio`, y se activa con `KILLALAB_BACKEND_URL`. Sin esa variable la web
+arranca igual: los dobles locales cumplen el mismo contrato y se declaran
+`disponible: false`, así que la interfaz lo dice en pantalla en vez de fingir que
+guardó algo.
+
+Cuando el contrato se cierre, el único archivo que cambia es
+`adaptadores/src/plataforma/backend-killalab.ts`.
+
+## Entorno
+
+| Variable | Sin ella | Con ella |
+|---|---|---|
+| `KILLALAB_NASA_BASE` / `KILLALAB_JPL_BASE` | NASA y JPL reales | `apps/fake-api`, todo dato sale etiquetado `simulado` |
+| `KILLALAB_BACKEND_URL` | progreso en memoria y directorio vacío | backend propio por HTTP |
+| `NASA_API_KEY` | `DEMO_KEY`, 30 peticiones por hora | la llave real |
