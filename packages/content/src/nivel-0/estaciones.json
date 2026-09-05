@@ -1,0 +1,17 @@
+{
+  "slug": "estaciones",
+  "nivel": 0,
+  "planeta": "Tierra",
+  "titulo": "Las estaciones no son por estar más cerca del Sol",
+  "resumen": "La inclinación del eje explica el verano y el invierno, no la distancia.",
+  "duracionMin": 12,
+  "offline": true,
+  "conceptos": [
+    { "id": "inclinacion", "titulo": "Inclinación del eje", "explicacion": "El eje de la Tierra está inclinado 23.5 grados. El hemisferio que recibe la luz más directa está en verano.", "conectaCon": ["hemisferios"] },
+    { "id": "hemisferios", "titulo": "Estaciones opuestas", "explicacion": "Cuando en Perú es invierno, en Europa es verano. Es el mismo momento del año visto desde el otro lado.", "conectaCon": ["inclinacion"] }
+  ],
+  "pasos": [
+    { "id": "p1", "enunciado": "¿Cuántos grados está inclinado el eje de la Tierra?", "tipo": "numero", "respuesta": 23.5 },
+    { "id": "p2", "enunciado": "Un error común: las estaciones ocurren porque la Tierra se acerca y se aleja del Sol.", "tipo": "opcion", "opciones": ["Falso", "Verdadero"], "respuesta": "Falso", "pista": "La Tierra está más cerca del Sol en enero, y en el hemisferio norte eso es invierno." }
+  ]
+}

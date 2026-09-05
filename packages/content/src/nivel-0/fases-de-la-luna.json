@@ -1,0 +1,17 @@
+{
+  "slug": "fases-de-la-luna",
+  "nivel": 0,
+  "planeta": "Luna",
+  "titulo": "Por qué la Luna cambia de forma",
+  "resumen": "La Luna no crece ni se encoge: cambia el pedazo iluminado que alcanzamos a ver.",
+  "duracionMin": 10,
+  "offline": true,
+  "conceptos": [
+    { "id": "fase", "titulo": "Fase lunar", "explicacion": "La porción de la Luna iluminada por el Sol que vemos desde la Tierra. Depende de dónde está la Luna en su órbita.", "conectaCon": ["ciclo", "orbita"] },
+    { "id": "ciclo", "titulo": "Ciclo sinódico", "explicacion": "Tarda unos 29.5 días en volver a la misma fase. Por eso un mes se parece tanto a una vuelta lunar.", "conectaCon": ["fase"] }
+  ],
+  "pasos": [
+    { "id": "p1", "enunciado": "¿Cuántos días pasan entre dos lunas llenas seguidas?", "tipo": "numero", "respuesta": 29.5, "pista": "Está muy cerca de la duración de un mes." },
+    { "id": "p2", "enunciado": "Durante la luna nueva, ¿qué pasa con la cara que mira a la Tierra?", "tipo": "opcion", "opciones": ["Está a oscuras", "Está totalmente iluminada", "Desaparece"], "respuesta": "Está a oscuras" }
+  ]
+}

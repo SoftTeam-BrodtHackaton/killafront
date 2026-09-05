@@ -1,0 +1,17 @@
+{
+  "slug": "dia-y-noche",
+  "nivel": 0,
+  "planeta": "Tierra",
+  "titulo": "La Tierra gira y por eso amanece",
+  "resumen": "El Sol no se mueve alrededor nuestro: somos nosotros los que damos la vuelta.",
+  "duracionMin": 8,
+  "offline": true,
+  "conceptos": [
+    { "id": "rotacion", "titulo": "Rotación", "explicacion": "La Tierra da una vuelta sobre sí misma cada 24 horas. La mitad que mira al Sol tiene día.", "conectaCon": ["husos"] },
+    { "id": "husos", "titulo": "Husos horarios", "explicacion": "Como la Tierra gira, no amanece a la misma hora en todas partes. Por eso Lima y Madrid llevan horas distintas.", "conectaCon": ["rotacion"] }
+  ],
+  "pasos": [
+    { "id": "p1", "enunciado": "¿Cuántas horas tarda la Tierra en dar una vuelta sobre su eje?", "tipo": "numero", "respuesta": 24 },
+    { "id": "p2", "enunciado": "Si en Lima es mediodía, en el lado opuesto del planeta es aproximadamente...", "tipo": "opcion", "opciones": ["medianoche", "mediodía", "atardecer"], "respuesta": "medianoche" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "gravedad-basica",
+  "nivel": 0,
+  "planeta": "Tierra",
+  "titulo": "Por qué los astronautas flotan",
+  "resumen": "No es que no haya gravedad allá arriba: es que están cayendo todo el tiempo.",
+  "duracionMin": 14,
+  "offline": true,
+  "conceptos": [
+    { "id": "gravedad", "titulo": "Gravedad", "explicacion": "La fuerza con la que dos cuerpos se atraen. Cuanta más masa, más atracción.", "conectaCon": ["caida", "orbita"] },
+    { "id": "caida", "titulo": "Caída libre", "explicacion": "En la Estación Espacial todo cae hacia la Tierra a la vez, y por eso parece flotar. La gravedad ahí es casi el 90% de la que sientes en el suelo.", "conectaCon": ["gravedad"] }
+  ],
+  "pasos": [
+    { "id": "p1", "enunciado": "¿Qué porcentaje aproximado de la gravedad terrestre hay en la Estación Espacial?", "tipo": "opcion", "opciones": ["0%", "50%", "90%"], "respuesta": "90%" },
+    { "id": "p2", "enunciado": "Un objeto pesado y uno ligero se sueltan a la vez en la Luna. ¿Cuál toca el suelo primero?", "tipo": "opcion", "opciones": ["Llegan juntos", "El pesado", "El ligero"], "respuesta": "Llegan juntos", "pista": "En la Luna no hay aire que frene a ninguno." }
+  ]
+}

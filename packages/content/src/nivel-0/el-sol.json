@@ -1,0 +1,18 @@
+{
+  "slug": "el-sol",
+  "nivel": 0,
+  "planeta": "Sol",
+  "titulo": "El Sol es una estrella común y corriente",
+  "resumen": "Qué es el Sol, de qué está hecho y por qué a veces lanza llamaradas.",
+  "duracionMin": 12,
+  "offline": true,
+  "conceptos": [
+    { "id": "estrella", "titulo": "Una estrella cualquiera", "explicacion": "El Sol es una estrella mediana. Parece especial solo porque es la que tenemos cerca.", "conectaCon": ["llamarada"] },
+    { "id": "llamarada", "titulo": "Llamarada solar", "explicacion": "Una explosión de energía en la superficie del Sol. Las más fuertes pueden afectar satélites y radios en la Tierra.", "conectaCon": ["estrella"] },
+    { "id": "luz8min", "titulo": "Ocho minutos de retraso", "explicacion": "La luz del Sol tarda unos 8 minutos en llegar. Siempre lo vemos como era hace 8 minutos.", "conectaCon": ["estrella"] }
+  ],
+  "pasos": [
+    { "id": "p1", "enunciado": "¿Cuántos minutos tarda la luz del Sol en llegar a la Tierra?", "tipo": "numero", "respuesta": 8 },
+    { "id": "p2", "enunciado": "Las llamaradas solares se clasifican con letras. ¿Cuál es la más intensa?", "tipo": "opcion", "opciones": ["Clase X", "Clase M", "Clase C"], "respuesta": "Clase X", "pista": "En el Nivel 2 vas a leer llamaradas reales de DONKI con esta misma clasificación." }
+  ]
+}
