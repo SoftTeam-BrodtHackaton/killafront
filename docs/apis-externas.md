@@ -26,16 +26,18 @@ pedagógica: un aula sin internet sigue funcionando.
 
 ## Llaves y límites
 
+La llave del equipo está en `apps/web/.env.example`, compartida a propósito: es
+un hackathon, es gratis y el límite nos sobra. Para arrancar:
+
 ```bash
-NASA_API_KEY=...            # api.nasa.gov, gratis, correo y listo
-KILLALAB_NASA_BASE=...      # opcional: apunta la NASA a la fake API
-KILLALAB_JPL_BASE=...       # opcional: apunta el JPL a la fake API
+cp apps/web/.env.example apps/web/.env.local
 ```
 
 - Sin `NASA_API_KEY` el cliente usa `DEMO_KEY`, limitada a **30 peticiones por
   hora y 50 por día, por IP**. Sirve para probar; en demo se agota sola.
-- Con llave propia el límite sube a **1 000 peticiones por hora**. La cabecera
-  `X-RateLimit-Remaining` de la respuesta dice cuánto queda.
+- Con la llave del equipo el límite sube a **1 000 peticiones por hora**. La
+  cabecera `X-RateLimit-Remaining` de cada respuesta dice cuánto queda. Si
+  alguna vez hiciera falta otra, se pide en `https://api.nasa.gov` en un minuto.
 - El **JPL no pide llave** y no publica un límite duro, pero pide uso razonable:
   cachear y no golpear en bucle.
 - La llave **nunca llega al navegador**: el cliente pide a `/api/eventos`, que es
