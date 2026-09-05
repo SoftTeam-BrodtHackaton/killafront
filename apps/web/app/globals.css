@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "@killalab/tokens/tokens.css";
+@import "@killalab/tokens/tipografia.css";
+
+/* El tema se conmuta por atributo, no por clase: el conmutador escribe data-tema. */
+@custom-variant oscuro (&:where([data-tema="oscuro"] *));
+
+@theme inline {
+  --color-indigo: var(--killa-indigo);
+  --color-indigo-suave: var(--killa-indigo-soft);
+  --color-ambar: var(--killa-ambar);
+  --color-ambar-suave: var(--killa-ambar-soft);
+  --color-turquesa: var(--killa-turquesa);
+  --color-turquesa-suave: var(--killa-turquesa-soft);
+
+  --color-lienzo: var(--bg);
+  --color-elevado: var(--bg-elevado);
+  --color-borde: var(--borde);
+  --color-tinta: var(--texto);
+  --color-tinta-sec: var(--texto-sec);
+
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-error: var(--error);
+
+  --radius-s: var(--radio-s);
+  --radius-m: var(--radio-m);
+  --radius-l: var(--radio-l);
+
+  --font-display: var(--fuente-display);
+  --font-cuerpo: var(--fuente-cuerpo);
+  --font-dato: var(--fuente-dato);
+}
+
+body {
+  background: var(--bg);
+  color: var(--texto);
+  font-family: var(--fuente-cuerpo);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* El blanco es el 70% de cualquier pantalla: las secciones respiran por defecto. */
+.seccion { padding-block: clamp(3rem, 8vw, 6rem); }
+.contenedor { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+:focus-visible { outline: 2px solid var(--killa-turquesa); outline-offset: 3px; border-radius: var(--radio-s); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
