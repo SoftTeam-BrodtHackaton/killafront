@@ -1,0 +1,48 @@
+{
+  "slug": "fases-de-la-luna",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Cuántos días pasan entre dos lunas llenas seguidas?",
+      "opciones": [
+        "28",
+        "29.5",
+        "30",
+        "31"
+      ],
+      "correcta": 1,
+      "porque": "El ciclo sinódico, que es el tiempo que tarda la Luna en volver a la misma fase, es de 29.5 días.",
+      "concepto": "ciclo"
+    },
+    {
+      "id": "q2",
+      "enunciado": "Durante la luna nueva, ¿qué parte de la Luna podemos ver desde la Tierra?",
+      "opciones": [
+        "La mitad iluminada",
+        "La cara oculta",
+        "Nada",
+        "La mitad oscura"
+      ],
+      "correcta": 2,
+      "porque": "Durante la luna nueva, la cara de la Luna que mira a la Tierra está a oscuras, ya que no está iluminada por el Sol.",
+      "concepto": "fase"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Qué ocurre con la Luna durante el ciclo sinódico?",
+      "opciones": [
+        "Se vuelve más grande",
+        "Cambia de forma",
+        "Se vuelve más brillante",
+        "Se mueve más rápido"
+      ],
+      "correcta": 1,
+      "porque": "Durante el ciclo sinódico, la Luna cambia de forma, pasando por diferentes fases.",
+      "concepto": "ciclo"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:29:17.700Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

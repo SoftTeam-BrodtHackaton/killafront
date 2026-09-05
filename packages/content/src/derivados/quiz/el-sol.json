@@ -1,0 +1,61 @@
+{
+  "slug": "el-sol",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Cuál es el tipo de estrella que es el Sol?",
+      "opciones": [
+        "A) Una estrella gigante",
+        "B) Una estrella mediana",
+        "C) Una estrella pequeña",
+        "D) Una estrella especial"
+      ],
+      "correcta": 1,
+      "porque": "El Sol es una estrella mediana, según el concepto 'estrella'.",
+      "concepto": "estrella"
+    },
+    {
+      "id": "q2",
+      "enunciado": "¿Qué ocurre en la superficie del Sol que puede afectar a la Tierra?",
+      "opciones": [
+        "A) Lluvias",
+        "B) Terremotos",
+        "C) Llamaradas solares",
+        "D) Eruptions volcánicas"
+      ],
+      "correcta": 2,
+      "porque": "Las llamaradas solares son explosiones de energía en la superficie del Sol que pueden afectar a la Tierra, según el concepto 'llamarada'.",
+      "concepto": "llamarada"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Cuántos minutos tarda la luz del Sol en llegar a la Tierra?",
+      "opciones": [
+        "A) 5 minutos",
+        "B) 10 minutos",
+        "C) 8 minutos",
+        "D) 12 minutos"
+      ],
+      "correcta": 2,
+      "porque": "La luz del Sol tarda 8 minutos en llegar a la Tierra, según el concepto 'luz8min'.",
+      "concepto": "luz8min"
+    },
+    {
+      "id": "q4",
+      "enunciado": "¿Cuál es la llamarada solar más intensa?",
+      "opciones": [
+        "A) Clase C",
+        "B) Clase M",
+        "C) Clase X",
+        "D) Clase L"
+      ],
+      "correcta": 2,
+      "porque": "Las llamaradas más intensas se clasifican como Clase X, según el concepto 'llamarada'.",
+      "concepto": "llamarada"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:41:56.066Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

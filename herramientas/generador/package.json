@@ -1,0 +1,15 @@
+{
+  "name": "@killalab/generador",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Taller de contenido derivado. NO entra en el hexágono: lee JSON y escribe JSON.",
+  "scripts": {
+    "derivar": "node cli.mjs derivar",
+    "quiz": "node cli.mjs quiz",
+    "guion": "node cli.mjs guion",
+    "registros": "node cli.mjs registros",
+    "todo": "node cli.mjs todo"
+  },
+  "dependencies": { "zod": "^4.1.5" }
+}

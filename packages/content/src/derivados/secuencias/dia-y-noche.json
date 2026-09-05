@@ -1,0 +1,23 @@
+{
+  "slug": "dia-y-noche",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "husos",
+      "titulo": "Husos horarios",
+      "explicacion": "Como la Tierra gira, no amanece a la misma hora en todas partes. Por eso Lima y Madrid llevan horas distintas.",
+      "lleva": [
+        "rotacion"
+      ]
+    },
+    {
+      "posicion": 2,
+      "id": "rotacion",
+      "titulo": "Rotación",
+      "explicacion": "La Tierra da una vuelta sobre sí misma cada 24 horas. La mitad que mira al Sol tiene día.",
+      "lleva": [
+        "husos"
+      ]
+    }
+  ]
+}

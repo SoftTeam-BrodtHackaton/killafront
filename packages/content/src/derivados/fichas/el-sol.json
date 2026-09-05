@@ -1,0 +1,30 @@
+{
+  "slug": "el-sol",
+  "titulo": "El Sol es una estrella común y corriente",
+  "idea": "Qué es el Sol, de qué está hecho y por qué a veces lanza llamaradas.",
+  "puntos": [
+    {
+      "titulo": "Una estrella cualquiera",
+      "explicacion": "El Sol es una estrella mediana. Parece especial solo porque es la que tenemos cerca."
+    },
+    {
+      "titulo": "Llamarada solar",
+      "explicacion": "Una explosión de energía en la superficie del Sol. Las más fuertes pueden afectar satélites y radios en la Tierra."
+    },
+    {
+      "titulo": "Ocho minutos de retraso",
+      "explicacion": "La luz del Sol tarda unos 8 minutos en llegar. Siempre lo vemos como era hace 8 minutos."
+    }
+  ],
+  "comprueba": [
+    {
+      "pregunta": "¿Cuántos minutos tarda la luz del Sol en llegar a la Tierra?",
+      "respuesta": "8"
+    },
+    {
+      "pregunta": "Las llamaradas solares se clasifican con letras. ¿Cuál es la más intensa?",
+      "respuesta": "Clase X"
+    }
+  ],
+  "duracionMin": 4
+}

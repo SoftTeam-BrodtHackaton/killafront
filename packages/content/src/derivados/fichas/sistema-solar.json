@@ -1,0 +1,30 @@
+{
+  "slug": "sistema-solar",
+  "titulo": "Quiénes viven en el barrio del Sol",
+  "idea": "Los ocho planetas, en qué orden van y por qué unos son de roca y otros de gas.",
+  "puntos": [
+    {
+      "titulo": "Órbita",
+      "explicacion": "El camino que recorre un planeta alrededor del Sol. No es un círculo perfecto: es una elipse."
+    },
+    {
+      "titulo": "Planetas rocosos",
+      "explicacion": "Mercurio, Venus, Tierra y Marte. Pequeños, de superficie sólida, cerca del Sol."
+    },
+    {
+      "titulo": "Gigantes gaseosos",
+      "explicacion": "Júpiter, Saturno, Urano y Neptuno. Enormes, sin superficie donde pararse."
+    }
+  ],
+  "comprueba": [
+    {
+      "pregunta": "Ordena los planetas desde el más cercano al Sol.",
+      "respuesta": "Mercurio → Venus → Tierra → Marte"
+    },
+    {
+      "pregunta": "¿En cuál de estos podrías pararte sobre suelo sólido?",
+      "respuesta": "Marte"
+    }
+  ],
+  "duracionMin": 4
+}

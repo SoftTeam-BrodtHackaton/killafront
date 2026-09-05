@@ -1,0 +1,44 @@
+{
+  "slug": "dia-y-noche",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Cómo se explica que haya días y noches en la Tierra?",
+      "respuesta": "La Tierra gira sobre su eje, dando una vuelta cada 24 horas. Cuando un lado está hacia el Sol, es día; cuando está lejos del Sol, es noche.",
+      "claves": [
+        "gira sobre su eje",
+        "da una vuelta",
+        "24 horas",
+        "lado hacia el Sol",
+        "lado lejos del Sol"
+      ],
+      "concepto": "rotacion"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Por qué no amanece a la misma hora en todas partes del planeta?",
+      "respuesta": "Porque la Tierra gira constantemente, y no amanece a la misma hora en diferentes lugares. Cuando amanece en un lugar, es noche en el lado opuesto del planeta.",
+      "claves": [
+        "gira constantemente",
+        "no amanece a la misma hora",
+        "lado opuesto del planeta"
+      ],
+      "concepto": "rotacion"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Qué ocurre cuando la Tierra está en el lado opuesto del Sol?",
+      "respuesta": "Cuando la Tierra está en el lado opuesto del Sol, es noche. Esos lugares no reciben luz solar directamente y se oscurece.",
+      "claves": [
+        "lado opuesto del Sol",
+        "no recibe luz solar",
+        "se oscurece"
+      ],
+      "concepto": "rotacion"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:33:32.519Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

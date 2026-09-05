@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import type { Tema } from "@killalab/dominio";
 import PasoMision from "./PasoMision";
 import Escala from "@/componentes/medida/Escala";
@@ -50,28 +49,15 @@ export default function Mision({ tema }: { tema: Tema }) {
       >
         {completa ? (
           <>
-            <h2 className="t-subtitulo text-tinta">Misión resuelta</h2>
+            <h2 className="t-subtitulo text-tinta">Reto resuelto</h2>
             <p className="t-cuerpo medida mt-e1 text-tinta-sec">
-              Tu mazo de repaso ya está armado con los conceptos de esta misión.
-            </p>
-            <p className="mt-e3 flex flex-wrap gap-e3">
-              <Link
-                href={`/tarjetas/${tema.slug}`}
-                className="t-apoyo border-b-2 border-ambar pb-0.5 font-bold text-tinta"
-              >
-                Repasar con las tarjetas
-              </Link>
-              <Link
-                href={`/planeta/${encodeURIComponent(tema.planeta)}/mapa`}
-                className="t-apoyo border-b border-borde pb-0.5 text-tinta hover:border-indigo"
-              >
-                Ver el mapa de {tema.planeta}
-              </Link>
+              Ahora prueba a responder lo mismo de memoria, o repásalo en una página. Arriba
+              tienes las otras formas de estudiar esta lección.
             </p>
           </>
         ) : (
           <p className="t-apoyo text-tinta-sec">
-            Al resolver todos los pasos se arma el mazo de repaso de esta misión.
+            Al resolver todos los pasos, la lección cuenta como hecha en tu curso.
           </p>
         )}
       </div>

@@ -1,0 +1,48 @@
+{
+  "slug": "dia-y-noche",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Cuántas horas tarda la Tierra en dar una vuelta sobre su eje?",
+      "opciones": [
+        "12 horas",
+        "24 horas",
+        "18 horas",
+        "36 horas"
+      ],
+      "correcta": 1,
+      "porque": "El tema indica que la Tierra da una vuelta sobre sí misma cada 24 horas.",
+      "concepto": "rotacion"
+    },
+    {
+      "id": "q2",
+      "enunciado": "Si en Lima es mediodía, en el lado opuesto del planeta es aproximadamente...",
+      "opciones": [
+        "medianoche",
+        "mediodía",
+        "atardecer",
+        "alba"
+      ],
+      "correcta": 0,
+      "porque": "El lado opuesto de Lima, que está girando en dirección opuesta, sería la mitad que mira hacia la noche, es decir, medianoche.",
+      "concepto": "rotacion"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Por qué no amanece a la misma hora en todas partes?",
+      "opciones": [
+        "Porque el Sol se mueve",
+        "Porque la Tierra gira",
+        "Porque la Tierra está estacionaria",
+        "Porque la Tierra se aleja del Sol"
+      ],
+      "correcta": 1,
+      "porque": "El tema explica que la Tierra gira, y por eso no amanece a la misma hora en todas partes.",
+      "concepto": "rotacion"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:40:21.513Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

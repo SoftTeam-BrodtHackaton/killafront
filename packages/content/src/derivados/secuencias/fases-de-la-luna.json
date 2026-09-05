@@ -1,0 +1,23 @@
+{
+  "slug": "fases-de-la-luna",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "ciclo",
+      "titulo": "Ciclo sinódico",
+      "explicacion": "Tarda unos 29.5 días en volver a la misma fase. Por eso un mes se parece tanto a una vuelta lunar.",
+      "lleva": [
+        "fase"
+      ]
+    },
+    {
+      "posicion": 2,
+      "id": "fase",
+      "titulo": "Fase lunar",
+      "explicacion": "La porción de la Luna iluminada por el Sol que vemos desde la Tierra. Depende de dónde está la Luna en su órbita.",
+      "lleva": [
+        "ciclo"
+      ]
+    }
+  ]
+}

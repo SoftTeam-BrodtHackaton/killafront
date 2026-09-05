@@ -1,0 +1,30 @@
+{
+  "slug": "sistema-solar",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "orbita",
+      "titulo": "Órbita",
+      "explicacion": "El camino que recorre un planeta alrededor del Sol. No es un círculo perfecto: es una elipse.",
+      "lleva": []
+    },
+    {
+      "posicion": 2,
+      "id": "rocosos",
+      "titulo": "Planetas rocosos",
+      "explicacion": "Mercurio, Venus, Tierra y Marte. Pequeños, de superficie sólida, cerca del Sol.",
+      "lleva": [
+        "orbita"
+      ]
+    },
+    {
+      "posicion": 3,
+      "id": "gigantes",
+      "titulo": "Gigantes gaseosos",
+      "explicacion": "Júpiter, Saturno, Urano y Neptuno. Enormes, sin superficie donde pararse.",
+      "lleva": [
+        "rocosos"
+      ]
+    }
+  ]
+}

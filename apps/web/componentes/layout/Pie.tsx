@@ -13,9 +13,8 @@ export default function Pie() {
         <Glifo tamano={24} className="mx-auto text-indigo" />
 
         <p className="t-apoyo mx-auto mt-e3 max-w-[62ch] text-tinta-sec">
-          KillaLab trabaja junto a comunidades estudiantiles de tecnología del Perú, entre ellas
-          capítulos y ramas estudiantiles IEEE, para acercar a más estudiantes a la ciencia y la
-          ingeniería. No es un proyecto oficial de esas instituciones ni está avalado por ellas.
+          Tu avance y tus notas se guardan en este navegador. Todavía no hay cuentas, así que no
+          viajan a otro dispositivo.
         </p>
 
         <p className="t-cifra-min mx-auto mt-e3 max-w-[62ch] text-tinta-sec">

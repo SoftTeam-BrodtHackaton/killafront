@@ -2,10 +2,11 @@ import Link from "next/link";
 import Lockup from "@/componentes/marca/Lockup";
 import ConmutadorTema from "./ConmutadorTema";
 
+/** Navegación de aplicación, no de portada: aquí se viene a estudiar. */
 const enlaces = [
-  { href: "/misiones", texto: "Misiones" },
-  { href: "/comunidades", texto: "Comunidades" },
-  { href: "/docentes", texto: "Docentes" },
+  { href: "/", texto: "Panel" },
+  { href: "/cursos", texto: "Cursos" },
+  { href: "/notas", texto: "Notas" },
 ] as const;
 
 /**

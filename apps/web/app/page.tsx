@@ -1,25 +1,26 @@
-import Masthead from "@/componentes/landing/Masthead";
-import EjeDeNiveles from "@/componentes/landing/EjeDeNiveles";
-import Formatos from "@/componentes/landing/Formatos";
-import Comunidades from "@/componentes/landing/Comunidades";
-import Credenciales from "@/componentes/landing/Credenciales";
-import Docentes from "@/componentes/landing/Docentes";
-import Aliados from "@/componentes/landing/Aliados";
+import { killalab } from "@killalab/composicion";
+import Panel from "@/componentes/panel/Panel";
 
-/** La lectura solar se refresca cada quince minutos; el resto de la página es
- *  estático. Así el SEO no depende de la latencia de la NASA. */
-export const revalidate = 900;
+export const dynamic = "force-static";
 
-export default function Portada() {
+/**
+ * El panel. Es la primera pantalla al entrar y responde a una sola pregunta:
+ * ¿qué estudio ahora?
+ *
+ * La portada de marketing ya no vive aquí: está en el repo `killalanding`. Esta
+ * aplicación es para estudiar, y empieza donde el estudiante lo dejó.
+ */
+export default function Inicio() {
   return (
     <div className="hoja">
-      <Masthead />
-      <EjeDeNiveles />
-      <Formatos />
-      <Comunidades />
-      <Credenciales />
-      <Docentes />
-      <Aliados />
+      <section className="registro">
+        <p className="margen">tu panel</p>
+        {/* El panel va envuelto: `.registro` es una rejilla de dos columnas y sin
+            este div cada sección del panel ocuparía una celda propia. */}
+        <div>
+          <Panel cursos={killalab.cursos()} />
+        </div>
+      </section>
     </div>
   );
 }

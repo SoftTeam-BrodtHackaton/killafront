@@ -1,0 +1,61 @@
+{
+  "slug": "sistema-solar",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Cuál es el planeta más cercano al Sol?",
+      "opciones": [
+        "Mercurio",
+        "Venus",
+        "Tierra",
+        "Marte"
+      ],
+      "correcta": 0,
+      "porque": "Según el tema, Mercurio es el más cercano al Sol.",
+      "concepto": "orbita"
+    },
+    {
+      "id": "q2",
+      "enunciado": "¿En cuál de estos planetas podrías caminar sobre su superficie?",
+      "opciones": [
+        "Júpiter",
+        "Marte",
+        "Saturno",
+        "Urano"
+      ],
+      "correcta": 1,
+      "porque": "El tema indica que Marte es un planeta rocoso, con superficie sólida.",
+      "concepto": "rocosos"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Cuáles de estos son gigantes gaseosos?",
+      "opciones": [
+        "Mercurio",
+        "Júpiter",
+        "Urano",
+        "Venus"
+      ],
+      "correcta": 1,
+      "porque": "El tema menciona que Júpiter, Saturno, Urano y Neptuno son gigantes gaseosos.",
+      "concepto": "gigantes"
+    },
+    {
+      "id": "q4",
+      "enunciado": "¿Qué orden tienen los planetas rocosos desde el Sol?",
+      "opciones": [
+        "Mercurio, Venus, Marte, Tierra",
+        "Mercurio, Venus, Tierra, Marte",
+        "Marte, Tierra, Venus, Mercurio",
+        "Tierra, Marte, Venus, Mercurio"
+      ],
+      "correcta": 1,
+      "porque": "El tema indica que los planetas rocosos son Mercurio, Venus, Tierra y Marte, en ese orden.",
+      "concepto": "rocosos"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:45:48.916Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

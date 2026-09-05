@@ -1,0 +1,23 @@
+{
+  "slug": "gravedad-basica",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "caida",
+      "titulo": "Caída libre",
+      "explicacion": "En la Estación Espacial todo cae hacia la Tierra a la vez, y por eso parece flotar. La gravedad ahí es casi el 90% de la que sientes en el suelo.",
+      "lleva": [
+        "gravedad"
+      ]
+    },
+    {
+      "posicion": 2,
+      "id": "gravedad",
+      "titulo": "Gravedad",
+      "explicacion": "La fuerza con la que dos cuerpos se atraen. Cuanta más masa, más atracción.",
+      "lleva": [
+        "caida"
+      ]
+    }
+  ]
+}

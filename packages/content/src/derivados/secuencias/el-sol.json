@@ -1,0 +1,32 @@
+{
+  "slug": "el-sol",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "llamarada",
+      "titulo": "Llamarada solar",
+      "explicacion": "Una explosión de energía en la superficie del Sol. Las más fuertes pueden afectar satélites y radios en la Tierra.",
+      "lleva": [
+        "estrella"
+      ]
+    },
+    {
+      "posicion": 2,
+      "id": "estrella",
+      "titulo": "Una estrella cualquiera",
+      "explicacion": "El Sol es una estrella mediana. Parece especial solo porque es la que tenemos cerca.",
+      "lleva": [
+        "llamarada"
+      ]
+    },
+    {
+      "posicion": 3,
+      "id": "luz8min",
+      "titulo": "Ocho minutos de retraso",
+      "explicacion": "La luz del Sol tarda unos 8 minutos en llegar. Siempre lo vemos como era hace 8 minutos.",
+      "lleva": [
+        "estrella"
+      ]
+    }
+  ]
+}

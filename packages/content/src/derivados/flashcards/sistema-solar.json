@@ -1,0 +1,54 @@
+{
+  "slug": "sistema-solar",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Por qué los planetas rocosos están más cerca del Sol que los gigantes gaseosos?",
+      "respuesta": "Los planetas rocosos están más cerca del Sol que los gigantes gaseosos porque son más pequeños y menos masivos, por lo que la gravedad del Sol los atrae más fuerte hacia su órbita.",
+      "claves": [
+        "planetas rocosos",
+        "gigantes gaseosos",
+        "gravedad",
+        "órbita"
+      ],
+      "concepto": "rocosos"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Cuáles son los planetas rocosos y en qué se diferencian de los gigantes gaseosos?",
+      "respuesta": "Los planetas rocosos son Mercurio, Venus, Tierra y Marte, y se diferencian de los gigantes gaseosos porque son más pequeños y tienen superficie sólida, en contraste con los gigantes gaseosos que son enormes y no tienen superficie sólida.",
+      "claves": [
+        "planetas rocosos",
+        "gigantes gaseosos",
+        "superficie sólida"
+      ],
+      "concepto": "rocosos"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Cómo se mueven los planetas alrededor del Sol y en qué se parece su órbita?",
+      "respuesta": "Los planetas se mueven alrededor del Sol en órbitas que no son perfectas círculos, sino elipses, y esto se debe a la gravedad del Sol que los atrae.",
+      "claves": [
+        "órbita",
+        "elipses",
+        "gravedad"
+      ],
+      "concepto": "orbita"
+    },
+    {
+      "id": "f4",
+      "pregunta": "¿Cuáles son los cuatro planetas gigantes gaseosos y en qué se parecen?",
+      "respuesta": "Los cuatro planetas gigantes gaseosos son Júpiter, Saturno, Urano y Neptuno, y se parecen porque son enormes y no tienen superficie sólida, sino que están compuestos principalmente de gas.",
+      "claves": [
+        "gigantes gaseosos",
+        "enormes",
+        "sin superficie sólida"
+      ],
+      "concepto": "gigantes"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:39:01.765Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

@@ -33,3 +33,7 @@ export function distanciaLegible(km: number): string {
   if (km >= 1_000_000) return `${numero(km / 1_000_000, 1)} millones de km`;
   return `${numero(km)} km`;
 }
+
+/** "1 lección" / "3 lecciones". Un plural mal puesto delata que nadie miró la pantalla. */
+export const plural = (n: number, singular: string, plural: string) =>
+  `${n} ${n === 1 ? singular : plural}`;

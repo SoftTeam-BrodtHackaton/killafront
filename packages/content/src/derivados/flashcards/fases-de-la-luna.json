@@ -1,0 +1,40 @@
+{
+  "slug": "fases-de-la-luna",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Cómo cambia la forma de la Luna que vemos desde la Tierra?",
+      "respuesta": "La forma de la Luna cambia porque la porción iluminada que vemos depende de dónde está la Luna en su órbita.",
+      "claves": [
+        "porción iluminada",
+        "órbita",
+        "cambia"
+      ],
+      "concepto": "fase"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Cuánto tiempo tarda la Luna en volver a la misma fase?",
+      "respuesta": "La Luna tarda unos 29.5 días en volver a la misma fase.",
+      "claves": [
+        "29.5 días",
+        "volver a la misma fase"
+      ],
+      "concepto": "ciclo"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Qué ocurre con la Luna durante la luna nueva?",
+      "respuesta": "Durante la luna nueva, la cara de la Luna que mira a la Tierra está a oscuras.",
+      "claves": [
+        "luna nueva",
+        "cara a oscuras"
+      ],
+      "concepto": "fase"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:31:15.057Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

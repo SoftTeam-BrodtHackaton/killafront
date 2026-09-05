@@ -1,0 +1,48 @@
+{
+  "slug": "gravedad-basica",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Qué porcentaje de gravedad terrestre hay en la Estación Espacial?",
+      "opciones": [
+        "0%",
+        "50%",
+        "90%",
+        "100%"
+      ],
+      "correcta": 2,
+      "porque": "La gravedad en la Estación Espacial es casi el 90% de la que sientes en el suelo de la Tierra.",
+      "concepto": "caida"
+    },
+    {
+      "id": "q2",
+      "enunciado": "¿Qué ocurre cuando se sueltan a la vez un objeto pesado y uno ligero en la Luna?",
+      "opciones": [
+        "El pesado llega primero",
+        "El ligero llega primero",
+        "Llegan juntos",
+        "No llegan nunca"
+      ],
+      "correcta": 2,
+      "porque": "En la Luna no hay aire que frene a ninguno, por lo que llegan juntos.",
+      "concepto": "caida"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Qué sucede con los astronautas en la Estación Espacial?",
+      "opciones": [
+        "Parecen flotar porque no hay gravedad",
+        "Parecen caer hacia abajo",
+        "Parecen caminar normalmente",
+        "Parecen levitar"
+      ],
+      "correcta": 1,
+      "porque": "En la Estación Espacial todo cae hacia la Tierra a la vez, y por eso parece que los astronautas están flotando.",
+      "concepto": "caida"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:44:24.939Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

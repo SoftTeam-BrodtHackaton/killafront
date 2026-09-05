@@ -1,0 +1,44 @@
+{
+  "slug": "gravedad-basica",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Cómo se explica que los astronautas parezcan flotar en la Estación Espacial?",
+      "respuesta": "Los astronautas parecen flotar porque en la Estación Espacial todo está cayendo hacia la Tierra a la misma velocidad, por lo que no sienten gravedad.",
+      "claves": [
+        "cayendo",
+        "gravedad",
+        "Estación Espacial"
+      ],
+      "concepto": "caida"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Qué sucede cuando se sueltan a la vez un objeto pesado y uno ligero en la Luna?",
+      "respuesta": "Cuando se sueltan a la vez un objeto pesado y uno ligero en la Luna, llegan al suelo juntos porque en la Luna no hay aire que frene a ninguno.",
+      "claves": [
+        "pesado",
+        "ligero",
+        "llegan juntos",
+        "sin aire"
+      ],
+      "concepto": "caida"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Por qué la gravedad en la Estación Espacial es casi el 90% de la que sientes en el suelo de la Tierra?",
+      "respuesta": "La gravedad en la Estación Espacial es casi el 90% de la que sientes en el suelo de la Tierra porque está muy cerca de la superficie de la Tierra.",
+      "claves": [
+        "gravedad",
+        "90%",
+        "cercana",
+        "Tierra"
+      ],
+      "concepto": "gravedad"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:37:15.152Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

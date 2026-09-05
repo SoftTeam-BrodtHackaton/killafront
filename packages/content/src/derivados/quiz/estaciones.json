@@ -1,0 +1,48 @@
+{
+  "slug": "estaciones",
+  "preguntas": [
+    {
+      "id": "q1",
+      "enunciado": "¿Cuántos grados está inclinado el eje de la Tierra?",
+      "opciones": [
+        "15 grados",
+        "23.5 grados",
+        "30 grados",
+        "45 grados"
+      ],
+      "correcta": 1,
+      "porque": "El eje de la Tierra está inclinado 23.5 grados, según el concepto 'inclinacion'.",
+      "concepto": "inclinacion"
+    },
+    {
+      "id": "q2",
+      "enunciado": "¿Por qué ocurren las estaciones en el hemisferio sur cuando en el norte es invierno?",
+      "opciones": [
+        "La Tierra se acerca más al Sol",
+        "El hemisferio sur recibe menos luz",
+        "El hemisferio sur se aleja del Sol",
+        "El hemisferio sur recibe luz más directa"
+      ],
+      "correcta": 1,
+      "porque": "Cuando en Perú es invierno, en Europa es verano. Es el mismo momento del año visto desde el otro lado, según el concepto 'hemisferios'.",
+      "concepto": "hemisferios"
+    },
+    {
+      "id": "q3",
+      "enunciado": "¿Es cierto que las estaciones ocurren porque la Tierra se acerca y se aleja del Sol?",
+      "opciones": [
+        "Verdadero",
+        "Falso",
+        "Depende de la estación",
+        "No se sabe"
+      ],
+      "correcta": 1,
+      "porque": "La inclinación del eje explica el verano y el invierno, no la distancia, según el concepto 'inclinacion'.",
+      "concepto": "inclinacion"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:43:14.275Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

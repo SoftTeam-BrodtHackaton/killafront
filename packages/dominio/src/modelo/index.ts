@@ -2,4 +2,7 @@ export * from "./dato";
 export * from "./clima-espacial";
 export * from "./asteroide";
 export * from "./contenido";
+export * from "./curso";
+export * from "./repaso";
+export * from "./credencial";
 export * from "./comunidad";

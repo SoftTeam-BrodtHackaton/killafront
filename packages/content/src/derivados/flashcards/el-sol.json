@@ -1,0 +1,53 @@
+{
+  "slug": "el-sol",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Cuál es la principal característica que el Sol comparte con otras estrellas?",
+      "respuesta": "El Sol es una estrella mediana que parece especial solo porque es la más cercana a la Tierra.",
+      "claves": [
+        "estrella mediana",
+        "cercana a la Tierra",
+        "parece especial"
+      ],
+      "concepto": "estrella"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Qué es una llamarada solar y cuáles son sus efectos?",
+      "respuesta": "Una llamarada solar es una explosión de energía en la superficie del Sol, y las más fuertes pueden afectar satélites y radios en la Tierra.",
+      "claves": [
+        "explosión de energía",
+        "superficie del Sol",
+        "afecta satélites y radios"
+      ],
+      "concepto": "llamarada"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Cuánto tiempo tarda la luz del Sol en llegar a la Tierra y por qué?",
+      "respuesta": "La luz del Sol tarda unos 8 minutos en llegar a la Tierra porque la luz necesita tiempo para viajar a través del espacio.",
+      "claves": [
+        "8 minutos",
+        "luz del Sol",
+        "viajar a través del espacio"
+      ],
+      "concepto": "luz8min"
+    },
+    {
+      "id": "f4",
+      "pregunta": "¿Cómo se clasifican las llamaradas solares y cuál es la más intensa?",
+      "respuesta": "Las llamaradas solares se clasifican con letras, y la más intensa es la Clase X.",
+      "claves": [
+        "clasifican con letras",
+        "Clase X",
+        "más intensa"
+      ],
+      "concepto": "llamarada"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:34:59.373Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

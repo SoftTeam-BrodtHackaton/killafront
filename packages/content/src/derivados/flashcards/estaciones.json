@@ -1,0 +1,43 @@
+{
+  "slug": "estaciones",
+  "tarjetas": [
+    {
+      "id": "f1",
+      "pregunta": "¿Cuál es la razón principal de que existan estaciones en la Tierra?",
+      "respuesta": "Las estaciones existen debido a la inclinación del eje de la Tierra.",
+      "claves": [
+        "inclinación",
+        "eje",
+        "estaciones"
+      ],
+      "concepto": "inclinacion"
+    },
+    {
+      "id": "f2",
+      "pregunta": "¿Cómo se explica que en Perú sea invierno mientras en Europa sea verano?",
+      "respuesta": "Estas estaciones opuestas ocurren porque el hemisferio que está inclinado hacia el Sol experimenta verano mientras el otro experimenta invierno.",
+      "claves": [
+        "hemisferios",
+        "estaciones opuestas",
+        "Sol"
+      ],
+      "concepto": "hemisferios"
+    },
+    {
+      "id": "f3",
+      "pregunta": "¿Por qué las estaciones no se deben a la distancia de la Tierra al Sol?",
+      "respuesta": "Las estaciones no se deben a la distancia de la Tierra al Sol, sino a la inclinación del eje de la Tierra.",
+      "claves": [
+        "distancia",
+        "Sol",
+        "inclinación",
+        "eje"
+      ],
+      "concepto": "inclinacion"
+    }
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T20:36:00.253Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

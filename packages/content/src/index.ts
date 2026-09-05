@@ -11,3 +11,5 @@ import elSol from "./nivel-0/el-sol.json";
  * importar. Así un JSON mal escrito rompe el build y nunca la clase.
  */
 export const CRUDOS: unknown[] = [sistemaSolar, fasesLuna, diaYNoche, estaciones, gravedad, elSol];
+
+export { FICHAS, SECUENCIAS, QUIZ, FLASHCARDS, GUIONES, REGISTROS } from "./derivados";

@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Atkinson_Hyperlegible, IBM_Plex_Mono } from "next/
 import Nav from "@/componentes/layout/Nav";
 import Pie from "@/componentes/layout/Pie";
 import RegistroSW from "@/componentes/layout/RegistroSW";
+import { ProveedorDeProgreso } from "@/componentes/progreso/almacen";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--fuente-display", weight: ["600", "700", "800"] });
@@ -10,12 +11,9 @@ const cuerpo = Atkinson_Hyperlegible({ subsets: ["latin"], variable: "--fuente-c
 const dato = IBM_Plex_Mono({ subsets: ["latin"], variable: "--fuente-dato", weight: ["400", "500"] });
 
 export const metadata: Metadata = {
-  title: {
-    default: "KillaLab, ciencia espacial con datos reales de la NASA",
-    template: "%s — KillaLab",
-  },
+  title: { default: "KillaLab", template: "%s — KillaLab" },
   description:
-    "Plataforma educativa peruana. Cada cifra que ves viene de una API pública y muestra su fuente y su fecha. Gratis para estudiantes.",
+    "Estudia ciencia espacial con datos reales de la NASA: resuelve retos, responde de memoria, repasa o escucha la lección.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [{ url: "/marca/glifo.svg", type: "image/svg+xml" }],
@@ -50,9 +48,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Saltar al contenido
         </a>
-        <Nav />
-        <main id="contenido">{children}</main>
-        <Pie />
+        <ProveedorDeProgreso>
+          <Nav />
+          <main id="contenido">{children}</main>
+          <Pie />
+        </ProveedorDeProgreso>
         <RegistroSW />
       </body>
     </html>

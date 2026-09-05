@@ -1,5 +1,5 @@
-import type { NodoMapa, Nivel, Tarjeta, Tema } from "../modelo";
-import { NIVELES } from "../modelo";
+import type { Curso, NodoMapa, Nivel, Tarjeta, Tema } from "../modelo";
+import { NIVELES, agruparEnCursos } from "../modelo";
 import type { PuertoCatalogo } from "../puertos";
 
 export interface DependenciasCatalogo {
@@ -68,5 +68,41 @@ export function listarPlanetas(d: DependenciasCatalogo) {
       .sort((a, b) => a.nivel - b.nivel)
       .filter((t) => (vistos.has(t.planeta) ? false : vistos.add(t.planeta) && true))
       .map((t) => t.planeta);
+  };
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Cursos                                                              */
+/* ------------------------------------------------------------------ */
+
+/** Todos los cursos publicados, en el orden en que se estudian. */
+export function listarCursos(d: DependenciasCatalogo) {
+  return function cursos(): Curso[] {
+    return agruparEnCursos(d.catalogo.temas());
+  };
+}
+
+export function abrirCurso(d: DependenciasCatalogo) {
+  return function curso(slug: string): Curso | null {
+    return agruparEnCursos(d.catalogo.temas()).find((c) => c.slug === slug) ?? null;
+  };
+}
+
+/** El curso al que pertenece una lección. Sirve para el rastro de migas. */
+export function cursoDeTema(d: DependenciasCatalogo) {
+  return function curso(temaSlug: string): Curso | null {
+    return (
+      agruparEnCursos(d.catalogo.temas()).find((c) => c.temas.some((t) => t.slug === temaSlug)) ??
+      null
+    );
+  };
+}
+
+/** Los niveles con sus cursos dentro. Es el índice del catálogo. */
+export function recorrerNivelesConCursos(d: DependenciasCatalogo) {
+  return function niveles(): Array<{ nivel: Nivel; cursos: Curso[] }> {
+    const cursos = agruparEnCursos(d.catalogo.temas());
+    return NIVELES.map((nivel) => ({ nivel, cursos: cursos.filter((c) => c.nivel === nivel.id) }));
   };
 }

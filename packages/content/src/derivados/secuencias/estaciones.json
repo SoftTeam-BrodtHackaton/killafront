@@ -1,0 +1,23 @@
+{
+  "slug": "estaciones",
+  "pasos": [
+    {
+      "posicion": 1,
+      "id": "hemisferios",
+      "titulo": "Estaciones opuestas",
+      "explicacion": "Cuando en Perú es invierno, en Europa es verano. Es el mismo momento del año visto desde el otro lado.",
+      "lleva": [
+        "inclinacion"
+      ]
+    },
+    {
+      "posicion": 2,
+      "id": "inclinacion",
+      "titulo": "Inclinación del eje",
+      "explicacion": "El eje de la Tierra está inclinado 23.5 grados. El hemisferio que recibe la luz más directa está en verano.",
+      "lleva": [
+        "hemisferios"
+      ]
+    }
+  ]
+}
