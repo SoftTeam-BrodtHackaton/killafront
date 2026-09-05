@@ -1,0 +1,10 @@
+{
+  "name": "@killalab/fake-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node servidor.js",
+    "start": "node servidor.js"
+  }
+}
