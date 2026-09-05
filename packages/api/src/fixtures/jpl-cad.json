@@ -1,0 +1,10 @@
+{
+  "_nota": "Respaldo de demo. Reemplazar por una respuesta real de ssd-api.jpl.nasa.gov/cad.api.",
+  "_capturado": "2026-09-04T18:20:00Z",
+  "fields": ["des", "cd", "dist", "v_rel"],
+  "data": [
+    ["2026 QF2", "2026-Sep-07 03:14", "0.0121", "8.42"],
+    ["2019 UB8", "2026-Sep-09 21:40", "0.0318", "12.07"],
+    ["2026 RA1", "2026-Sep-12 11:02", "0.0402", "5.63"]
+  ]
+}

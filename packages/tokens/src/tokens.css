@@ -1,0 +1,42 @@
+/* Sistema de diseño KillaLab — origen único de color y forma.
+   Modo claro por defecto: muchos colegios proyectan en aulas iluminadas. */
+
+:root {
+  color-scheme: light;
+
+  --killa-indigo: #2D2A6E;
+  --killa-indigo-soft: #4A46A8;
+  --killa-ambar: #F0A202;
+  --killa-ambar-soft: #FFC53D;
+  --killa-turquesa: #0E9AA7;
+  --killa-turquesa-soft: #3FBFCB;
+
+  --bg: #FFFFFF;
+  --bg-elevado: #F3F4F8;
+  --borde: #DFE1EA;
+  --texto: #14142B;
+  --texto-sec: #5A5C78;
+
+  --ok: #12855F;
+  --warn: #D97706;
+  --error: #C0392B;
+
+  --radio-s: 4px;
+  --radio-m: 10px;
+  --radio-l: 20px;
+}
+
+[data-tema="oscuro"] {
+  color-scheme: dark;
+
+  --killa-indigo: #A5A0F0;
+  --killa-indigo-soft: #6F6ACB;
+  --killa-ambar: #FFB627;
+  --killa-turquesa: #45C7D4;
+
+  --bg: #101024;
+  --bg-elevado: #1A1A38;
+  --borde: #2C2C52;
+  --texto: #EDEDF7;
+  --texto-sec: #A0A2C0;
+}
