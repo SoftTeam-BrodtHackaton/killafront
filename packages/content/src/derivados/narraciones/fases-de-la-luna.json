@@ -1,0 +1,14 @@
+{
+  "slug": "fases-de-la-luna",
+  "titulo": "Por qué la Luna cambia de forma",
+  "parrafos": [
+    "Bien, imagina que la Luna es como un reloj. Cada 29.5 días, el reloj da una vuelta completa. Eso es lo que llamamos ciclo sinódico. Es como si la Luna diera un giro y volviera a la misma posición. Entonces, si ves la Luna llena hoy, en 29.5 días la verás de nuevo llena, pero la próxima vez que pase, la Luna estará en una nueva fase.",
+    "Ahora, la Luna no se crece ni se achica. Lo que cambia es la parte que vemos iluminada. Imagina que la Luna es como un plato. El Sol le ilumina una parte de ese plato, y eso es lo que vemos desde la Tierra. Cuando la Luna está entre el Sol y la Tierra, vemos una cara oscura, eso se llama luna nueva. Cuando está en el otro lado, vemos toda la cara iluminada, y eso se llama luna llena.",
+    "Hay varias fases entre la luna nueva y la luna llena. Por ejemplo, la luna creciente es como si el plato estuviera llenándose poco a poco. Y la luna menguante es como si estuviera vaciándose. Cada una de estas fases se llama fase lunar. Cada una dura unos días.",
+    "Entonces, si quieres saber cuántos días pasan entre dos lunas llenas seguidas, la respuesta es 29.5 días. Eso es casi un mes. Si ves la Luna llena hoy, en 29.5 días la verás de nuevo llena, pero en una nueva fase. Recuerda, la Luna no se mueve, es solo que cambia la parte que vemos iluminada. Por eso la Luna parece cambiar de forma. La Luna no crece ni se encoge, solo cambia de fase."
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T21:01:50.603Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

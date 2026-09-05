@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { Flashcards as Mazo } from "@killalab/dominio";
-import { UMBRAL_APROBACION, comentarioDe, corregirRespuesta } from "@killalab/dominio";
+import { UMBRAL_APROBACION, comentarioDe, corregirRespuesta, semillaDeSesion, tomarVariadas } from "@killalab/dominio";
 import { Boton } from "@/componentes/ui/Boton";
 import Anillo from "@/componentes/panel/Anillo";
 
@@ -19,15 +19,22 @@ import Anillo from "@/componentes/panel/Anillo";
  * Fallar no bloquea. Se puede reintentar, o pasar y volver luego: la tarjeta que
  * no salió vuelve a la cola en vez de quedarse trabando el mazo.
  */
+const CUANTAS = 5;
+
 export default function Flashcards({ mazo }: { mazo: Mazo }) {
   const [indice, setIndice] = useState(0);
   const [escrito, setEscrito] = useState("");
   const [correccion, setCorreccion] = useState<ReturnType<typeof corregirRespuesta> | null>(null);
   const [aprobadas, setAprobadas] = useState<string[]>([]);
-  const [pendientes, setPendientes] = useState(() => mazo.tarjetas.map((t) => t.id));
+  // Una tanda distinta cada vez, repartida entre conceptos. El componente se
+  // monta al elegir la pestaña, ya en el cliente, así que la semilla es segura.
+  const [ronda, setRonda] = useState(() => tomarVariadas(mazo.tarjetas, CUANTAS, semillaDeSesion()));
+  const [pendientes, setPendientes] = useState(() =>
+    tomarVariadas(mazo.tarjetas, CUANTAS, semillaDeSesion()).map((t) => t.id),
+  );
 
-  const tarjeta = mazo.tarjetas.find((t) => t.id === pendientes[indice % Math.max(pendientes.length, 1)]);
-  const total = mazo.tarjetas.length;
+  const tarjeta = ronda.find((t) => t.id === pendientes[indice % Math.max(pendientes.length, 1)]);
+  const total = ronda.length;
   const porcentaje = total === 0 ? 0 : Math.round((aprobadas.length / total) * 100);
   const terminado = pendientes.length === 0;
 
@@ -64,12 +71,14 @@ export default function Flashcards({ mazo }: { mazo: Mazo }) {
           variante="secundario"
           className="mt-e3"
           onClick={() => {
-            setPendientes(mazo.tarjetas.map((t) => t.id));
+            const otra = tomarVariadas(mazo.tarjetas, CUANTAS, Date.now());
+            setRonda(otra);
+            setPendientes(otra.map((t) => t.id));
             setAprobadas([]);
             setIndice(0);
           }}
         >
-          Repasar otra vez
+          Otras tarjetas del tema
         </Boton>
       </div>
     );
@@ -83,7 +92,7 @@ export default function Flashcards({ mazo }: { mazo: Mazo }) {
         <Anillo porcentaje={porcentaje} tamano={48} completado={porcentaje === 100} />
         <div>
           <p className="t-cifra-min text-tinta-sec">
-            {aprobadas.length} de {total} sabidas, {pendientes.length} en la cola
+            {aprobadas.length} de {total} sabidas, de un banco de {mazo.tarjetas.length}
           </p>
           <p className="t-anotacion">
             Se da por sabida a partir del {UMBRAL_APROBACION} % de las ideas clave.

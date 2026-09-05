@@ -4,5 +4,6 @@ export * from "./asteroide";
 export * from "./contenido";
 export * from "./curso";
 export * from "./repaso";
+export * from "./banco";
 export * from "./credencial";
 export * from "./comunidad";

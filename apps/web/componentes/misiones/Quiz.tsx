@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { Quiz as QuizDatos } from "@killalab/dominio";
+import { semillaDeSesion, tomarVariadas } from "@killalab/dominio";
 import { Boton } from "@/componentes/ui/Boton";
 import Anillo from "@/componentes/panel/Anillo";
 
@@ -12,14 +13,24 @@ import Anillo from "@/componentes/panel/Anillo";
  * qué la que elegiste no era.
  *
  * Fallar no cierra la pregunta. Es repaso, no examen.
+ *
+ * Las preguntas salen de un banco grande y se eligen unas pocas cada vez,
+ * repartidas entre conceptos distintos. Repasar dos veces el mismo tema no es
+ * responder lo mismo dos veces: eso enseña a memorizar dónde estaba la respuesta,
+ * no el contenido.
  */
+const CUANTAS = 5;
+
 export default function Quiz({ quiz }: { quiz: QuizDatos }) {
   const [indice, setIndice] = useState(0);
   const [elegida, setElegida] = useState<number | null>(null);
   const [aciertos, setAciertos] = useState<string[]>([]);
+  // El componente solo se monta cuando el estudiante elige esta pestaña, o sea
+  // ya en el cliente: la semilla no puede desincronizar servidor y cliente.
+  const [ronda, setRonda] = useState(() => tomarVariadas(quiz.preguntas, CUANTAS, semillaDeSesion()));
 
-  const total = quiz.preguntas.length;
-  const pregunta = quiz.preguntas[indice];
+  const total = ronda.length;
+  const pregunta = ronda[indice];
   const terminado = indice >= total;
   const porcentaje = total === 0 ? 0 : Math.round((aciertos.length / total) * 100);
 
@@ -39,12 +50,14 @@ export default function Quiz({ quiz }: { quiz: QuizDatos }) {
           variante="secundario"
           className="mt-e3"
           onClick={() => {
+            // Otras preguntas del banco, no las mismas otra vez.
+            setRonda(tomarVariadas(quiz.preguntas, CUANTAS, Date.now()));
             setIndice(0);
             setElegida(null);
             setAciertos([]);
           }}
         >
-          Volver a intentarlo
+          Otras preguntas del tema
         </Boton>
       </div>
     );
@@ -64,7 +77,7 @@ export default function Quiz({ quiz }: { quiz: QuizDatos }) {
     <div className="max-w-[56ch]">
       <div className="flex items-baseline justify-between gap-e2 border-t-2 border-indigo pt-e2">
         <p className="t-cifra-min text-tinta-sec">
-          pregunta {indice + 1} de {total}
+          pregunta {indice + 1} de {total}, de un banco de {quiz.preguntas.length}
         </p>
         <p className="t-cifra-min text-tinta-sec">{aciertos.length} acertadas</p>
       </div>

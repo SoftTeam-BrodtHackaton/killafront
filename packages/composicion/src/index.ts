@@ -60,6 +60,7 @@ export const killalab = {
   secuencia: (slug: string) => catalogo.secuenciaDe(slug),
   quiz: (slug: string) => catalogo.quizDe(slug),
   flashcards: (slug: string) => catalogo.flashcardsDe(slug),
+  narracion: (slug: string) => catalogo.narracionDe(slug),
   mapaMental: construirMapaMental({ catalogo }),
   planetas: listarPlanetas({ catalogo }),
   progreso,

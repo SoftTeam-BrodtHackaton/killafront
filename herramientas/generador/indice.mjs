@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const CONTENIDO = join(AQUI, "..", "..", "packages", "content", "src");
 
-const CARPETAS = ["fichas", "secuencias", "quiz", "flashcards", "guiones", "registros"];
+const CARPETAS = ["fichas", "secuencias", "quiz", "flashcards", "narraciones", "guiones", "registros"];
 
 const enCamello = (slug) =>
   slug.split("-").map((p, i) => (i === 0 ? p : p[0].toUpperCase() + p.slice(1))).join("");

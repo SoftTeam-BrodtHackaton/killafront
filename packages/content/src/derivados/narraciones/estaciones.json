@@ -1,0 +1,15 @@
+{
+  "slug": "estaciones",
+  "titulo": "Las estaciones no son por estar más cerca del Sol",
+  "parrafos": [
+    "Hoy vamos a hablar sobre las estaciones. ¿Sabes cuántos grados está inclinado el eje de la Tierra? Pues bien, está inclinado 23.5 grados. Esa inclinación es lo que determina cuándo es verano y cuándo es invierno, no la distancia de la Tierra al Sol.",
+    "Imagina que la Tierra es como un palo con una goma en una punta y una pelota en la otra. El palo se inclina 23.5 grados, y eso es lo que nos da las estaciones. Cuando el hemisferio norte está más inclinado hacia el Sol, es verano allí. Mientras que cuando el hemisferio sur está más inclinado, es verano allí. Es como si la Tierra diera un giro en su eje.",
+    "Ahora, hay un error común que mucha gente cree. Muchas personas piensan que las estaciones ocurren porque la Tierra se acerca y se aleja del Sol. Pero eso no es cierto. En realidad, la Tierra está más cerca del Sol en enero, y en el hemisferio norte eso es invierno. ¿Ves? Es como si la Tierra diera un giro y la luz del Sol se desviara a otro lado.",
+    "Imagina que estás en Perú en invierno. Mientras tanto, en Europa es verano. Es el mismo momento del año, solo que estás del otro lado. Es como si la Tierra diera un vuelo en el cielo y la luz del Sol se desviara a otro lado. Eso es lo que nos da las estaciones opuestas en diferentes partes del mundo.",
+    "En resumen, las estaciones no ocurren porque la Tierra se acerque o se aleje del Sol. Son el resultado de la inclinación del eje de la Tierra. Cuando un hemisferio está más inclinado hacia el Sol, es verano, y cuando está más inclinado lejos, es invierno. Y eso explica por qué en Perú es invierno cuando en Europa es verano. La inclinación del eje es lo que nos da las estaciones."
+  ],
+  "generadoPor": "qwen2.5:7b",
+  "generadoEl": "2026-09-05T21:11:01.914Z",
+  "revisadoPor": null,
+  "revisadoEl": null
+}

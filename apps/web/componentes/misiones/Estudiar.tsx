@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import type { Ficha, Flashcards as Mazo, Quiz as QuizDatos, Secuencia, Tema } from "@killalab/dominio";
+import type { Ficha, Flashcards as Mazo, Narracion, Quiz as QuizDatos, Secuencia, Tema } from "@killalab/dominio";
 import Mision from "./Mision";
 import Flashcards from "./Flashcards";
 import Quiz from "./Quiz";
 import FichaRepaso from "./FichaRepaso";
 import Podcast from "./Podcast";
+import Tutor from "./Tutor";
 
 /**
  * Todas las formas de estudiar una misma lección, en un selector.
@@ -20,7 +21,7 @@ import Podcast from "./Podcast";
  * que no tenerla: promete algo y no lo cumple.
  */
 
-type Modo = "reto" | "escribir" | "elegir" | "leer" | "escuchar";
+type Modo = "reto" | "escribir" | "elegir" | "leer" | "escuchar" | "preguntar";
 
 export default function Estudiar({
   tema,
@@ -28,19 +29,24 @@ export default function Estudiar({
   quiz,
   flashcards,
   secuencia,
+  narracion,
 }: {
   tema: Tema;
   ficha: Ficha | null;
   quiz: QuizDatos | null;
   flashcards: Mazo | null;
   secuencia: Secuencia | null;
+  narracion: Narracion | null;
 }) {
   const modos: Array<{ id: Modo; nombre: string; que: string; hay: boolean }> = [
     { id: "reto", nombre: "Resolver", que: "El reto paso a paso", hay: tema.pasos.length > 0 },
     { id: "escribir", nombre: "Escribir", que: "Responde de memoria y se corrige", hay: flashcards !== null },
     { id: "elegir", nombre: "Elegir", que: "Opción múltiple con el porqué", hay: quiz !== null },
     { id: "leer", nombre: "Leer", que: "Todo en una página", hay: ficha !== null },
-    { id: "escuchar", nombre: "Escuchar", que: "Como un podcast", hay: ficha !== null },
+    { id: "escuchar", nombre: "Escuchar", que: "La teoría en voz alta", hay: narracion !== null },
+    // El tutor va el último a propósito: es la única forma que necesita un
+    // servicio funcionando, así que nunca es la puerta de entrada a la lección.
+    { id: "preguntar", nombre: "Preguntar", que: "Un tutor que solo sabe de esto", hay: true },
   ];
 
   const disponibles = modos.filter((m) => m.hay);
@@ -80,7 +86,8 @@ export default function Estudiar({
         {modo === "escribir" && flashcards ? <Flashcards mazo={flashcards} /> : null}
         {modo === "elegir" && quiz ? <Quiz quiz={quiz} /> : null}
         {modo === "leer" && ficha ? <FichaRepaso ficha={ficha} secuencia={secuencia} /> : null}
-        {modo === "escuchar" && ficha ? <Podcast ficha={ficha} tema={tema} /> : null}
+        {modo === "escuchar" && narracion ? <Podcast narracion={narracion} /> : null}
+        {modo === "preguntar" ? <Tutor tema={tema} /> : null}
       </div>
     </div>
   );

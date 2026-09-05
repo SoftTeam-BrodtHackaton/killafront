@@ -1,126 +1,120 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { Ficha, Tema } from "@killalab/dominio";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Narracion } from "@killalab/dominio";
 import { Boton } from "@/componentes/ui/Boton";
 
 /**
- * Escuchar la lección.
+ * Escuchar la teoría.
  *
- * La voz la pone el navegador (`speechSynthesis`), no un servicio: sin llave, sin
- * coste, sin cuota y sin internet una vez cargada la página. Para un aula peruana
- * con datos móviles caros, esa es la diferencia entre que se use y que no.
+ * Una sola voz que explica de corrido, como quien te cuenta el tema camino al
+ * colegio. No es un diálogo entre dos locutores: el texto lo escribió el taller
+ * como narración seguida, así que aquí no hay turnos ni nombres.
  *
- * El guion no lo escribe un modelo en tiempo real: se arma con un `map()` sobre la
- * ficha, que a su vez sale del tema. Sigue valiendo la regla del proyecto — el
- * texto que se escucha no contiene nada que no esté en el contenido versionado.
+ * **Sobre la voz.** La pone el navegador (`speechSynthesis`): sin llave, sin coste
+ * y sin internet una vez cargada la página. Se elige la mejor voz española
+ * disponible —las de Google y las "natural" de Microsoft suenan bastante mejor que
+ * la que sale por defecto— y se baja un poco la velocidad, que es lo que más
+ * ayuda a que no suene a robot. Es el techo honesto sin un servicio de pago: para
+ * voz de verdad, el plan es generar los audios antes con Piper y servirlos.
  *
- * Se guarda por dónde ibas: volver y retomar en el turno 7 es la diferencia entre
- * un reproductor que se usa dos veces y uno que acompaña el camino al colegio.
+ * Se lee párrafo a párrafo y no de un tirón porque los navegadores cortan los
+ * textos largos, y además así se puede resaltar por dónde va y retomarlo.
  */
 
-interface Turno {
-  voz: "ana" | "beto";
-  texto: string;
+const claveDe = (slug: string) => `killa-escucha-${slug}`;
+
+/** Voces que suenan claramente mejor, por orden de preferencia. */
+const PREFERIDAS = [/google/i, /natural/i, /neural/i, /helena|sabina|laura|paulina|jorge/i];
+
+function mejorVozEspanola(voces: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+  const espanolas = voces.filter((v) => v.lang.toLowerCase().startsWith("es"));
+  if (espanolas.length === 0) return null;
+
+  // Latinoamericanas primero: el contenido está escrito en español de Perú.
+  const latinas = espanolas.filter((v) => !/es-es/i.test(v.lang));
+  const candidatas = latinas.length > 0 ? latinas : espanolas;
+
+  for (const patron of PREFERIDAS) {
+    const encontrada = candidatas.find((v) => patron.test(v.name));
+    if (encontrada) return encontrada;
+  }
+  return candidatas[0] ?? null;
 }
 
-/** El guion, derivado de la ficha. Estructura fija: gancho, desarrollo, comprobación, cierre. */
-function armarGuion(ficha: Ficha, tema: Tema): Turno[] {
-  const turnos: Turno[] = [
-    { voz: "ana", texto: `${ficha.titulo}.` },
-    { voz: "beto", texto: ficha.idea },
-  ];
-
-  for (const p of ficha.puntos) {
-    turnos.push({ voz: "ana", texto: `${p.titulo}.` });
-    turnos.push({ voz: "beto", texto: p.explicacion });
-  }
-
-  for (const c of ficha.comprueba) {
-    turnos.push({ voz: "ana", texto: c.pregunta });
-    turnos.push({ voz: "beto", texto: `${c.respuesta}.` });
-  }
-
-  turnos.push({
-    voz: "ana",
-    texto: `Eso es ${tema.planeta}. Cuando quieras, abre la lección y resuelve el reto.`,
-  });
-
-  return turnos;
-}
-
-const claveDe = (slug: string) => `killa-podcast-${slug}`;
-
-export default function Podcast({ ficha, tema }: { ficha: Ficha; tema: Tema }) {
-  const guion = armarGuion(ficha, tema);
-  const [turno, setTurno] = useState(0);
+export default function Podcast({ narracion }: { narracion: Narracion }) {
+  const parrafos = narracion.parrafos;
+  const [indice, setIndice] = useState(0);
   const [sonando, setSonando] = useState(false);
+  const [voz, setVoz] = useState<SpeechSynthesisVoice | null>(null);
   const [haySintesis, setHaySintesis] = useState(true);
-  const turnoRef = useRef(0);
+  const actual = useRef(0);
 
-  // Retomar donde se quedó.
   useEffect(() => {
-    setHaySintesis(typeof window !== "undefined" && "speechSynthesis" in window);
+    const sintesis = typeof window !== "undefined" ? window.speechSynthesis : undefined;
+    setHaySintesis(Boolean(sintesis));
+    if (!sintesis) return;
+
+    // Las voces llegan de forma asíncrona en casi todos los navegadores.
+    const cargar = () => setVoz(mejorVozEspanola(sintesis.getVoices()));
+    cargar();
+    sintesis.addEventListener("voiceschanged", cargar);
+
     try {
-      const guardado = Number(localStorage.getItem(claveDe(tema.slug)) ?? 0);
-      if (Number.isFinite(guardado) && guardado > 0 && guardado < guion.length) {
-        setTurno(guardado);
-        turnoRef.current = guardado;
+      const guardado = Number(localStorage.getItem(claveDe(narracion.slug)) ?? 0);
+      if (Number.isFinite(guardado) && guardado > 0 && guardado < parrafos.length) {
+        setIndice(guardado);
       }
     } catch {
-      // Sin almacenamiento se empieza desde el principio. No es grave.
+      // Sin almacenamiento se empieza desde el principio.
     }
-    // Cortar la voz al salir: nada peor que una página que sigue hablando sola.
+
     return () => {
-      try {
-        window.speechSynthesis?.cancel();
-      } catch {
-        // El navegador no soporta síntesis; no había nada que cortar.
-      }
+      sintesis.removeEventListener("voiceschanged", cargar);
+      sintesis.cancel(); // nada peor que una página que sigue hablando sola
     };
-  }, [tema.slug, guion.length]);
+  }, [narracion.slug, parrafos.length]);
 
   const recordar = useCallback(
     (i: number) => {
       try {
-        localStorage.setItem(claveDe(tema.slug), String(i));
+        localStorage.setItem(claveDe(narracion.slug), String(i));
       } catch {
-        // Igual que arriba: se pierde al cerrar, no antes.
+        // Se pierde al cerrar, no antes.
       }
     },
-    [tema.slug],
+    [narracion.slug],
   );
 
-  const decir = useCallback(
+  const leer = useCallback(
     (desde: number) => {
       const sintesis = window.speechSynthesis;
       if (!sintesis) return;
-
       sintesis.cancel();
-      turnoRef.current = desde;
 
       const siguiente = (i: number) => {
-        const t = guion[i];
-        if (!t) {
+        const texto = parrafos[i];
+        if (!texto) {
           setSonando(false);
-          setTurno(0);
+          setIndice(0);
           recordar(0);
           return;
         }
 
-        const u = new SpeechSynthesisUtterance(t.texto);
-        u.lang = "es-PE";
-        // Dos voces distinguibles sin depender de que el sistema tenga voces en
-        // español: se separan por tono y velocidad, no por nombre de voz.
-        u.pitch = t.voz === "ana" ? 1.15 : 0.9;
-        u.rate = t.voz === "ana" ? 1.02 : 0.96;
+        const u = new SpeechSynthesisUtterance(texto);
+        u.lang = voz?.lang ?? "es-PE";
+        if (voz) u.voice = voz;
+        // Más lento y con el tono apenas por debajo del neutro: es lo que más
+        // distingue una lectura tranquila de la cantinela por defecto.
+        u.rate = 0.92;
+        u.pitch = 0.98;
 
         u.onstart = () => {
-          setTurno(i);
+          setIndice(i);
           recordar(i);
         };
         u.onend = () => {
-          if (turnoRef.current !== i) return; // se pausó o se saltó
-          turnoRef.current = i + 1;
+          if (actual.current !== i) return; // se pausó o se saltó
+          actual.current = i + 1;
           siguiente(i + 1);
         };
         u.onerror = () => setSonando(false);
@@ -128,89 +122,80 @@ export default function Podcast({ ficha, tema }: { ficha: Ficha; tema: Tema }) {
         sintesis.speak(u);
       };
 
+      actual.current = desde;
       setSonando(true);
       siguiente(desde);
     },
-    [guion, recordar],
+    [parrafos, recordar, voz],
   );
 
   function pausar() {
-    try {
-      window.speechSynthesis?.cancel();
-    } catch {
-      // Sin síntesis no hay nada que pausar.
-    }
-    turnoRef.current = -1;
+    window.speechSynthesis?.cancel();
+    actual.current = -1;
     setSonando(false);
   }
 
-  const minutos = Math.max(1, Math.round(guion.reduce((n, t) => n + t.texto.length, 0) / 850));
-
-  if (!haySintesis) {
-    return (
-      <div className="max-w-[56ch] border-l-2 border-ambar pl-e3">
-        <h3 className="t-subtitulo text-tinta">Tu navegador no puede leer en voz alta</h3>
-        <p className="t-cuerpo mt-e1 text-tinta-sec">
-          Abajo está el mismo guion escrito. Lo puedes leer, o abrir esta página en Chrome o Edge,
-          que sí traen voz.
-        </p>
-        <ol className="mt-e3">
-          {guion.map((t, i) => (
-            <li key={i} className="border-t border-borde py-e2">
-              <span className="t-anotacion">{t.voz}</span>
-              <p className="t-cuerpo mt-0.5 text-tinta">{t.texto}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    );
-  }
+  const minutos = useMemo(
+    () => Math.max(1, Math.round(parrafos.join(" ").length / 900)),
+    [parrafos],
+  );
 
   return (
-    <div className="max-w-[56ch]">
-      <div className="flex flex-wrap items-center gap-e3 border-t-2 border-indigo pt-e3">
-        <Boton variante="primario" onClick={() => (sonando ? pausar() : decir(turno))}>
-          {sonando ? "Pausar" : turno > 0 ? "Continuar donde lo dejaste" : "Escuchar la lección"}
-        </Boton>
+    <div className="max-w-[62ch]">
+      <h3 className="t-subtitulo text-tinta">{narracion.titulo}</h3>
 
-        {turno > 0 && !sonando ? (
-          <Boton
-            variante="sobrio"
-            onClick={() => {
-              setTurno(0);
-              recordar(0);
-              decir(0);
-            }}
-          >
-            Empezar de nuevo
-          </Boton>
+      <div className="mt-e3 flex flex-wrap items-center gap-e3 border-t-2 border-indigo pt-e3">
+        {haySintesis ? (
+          <>
+            <Boton variante="primario" onClick={() => (sonando ? pausar() : leer(indice))}>
+              {sonando ? "Pausar" : indice > 0 ? "Continuar donde lo dejaste" : "Escuchar la explicación"}
+            </Boton>
+
+            {indice > 0 && !sonando ? (
+              <Boton
+                variante="sobrio"
+                onClick={() => {
+                  setIndice(0);
+                  recordar(0);
+                  leer(0);
+                }}
+              >
+                Desde el principio
+              </Boton>
+            ) : null}
+          </>
         ) : null}
 
         <p className="t-cifra-min text-tinta-sec">
-          {minutos} min, turno {turno + 1} de {guion.length}
+          {minutos} min de escucha
+          {voz ? `, voz ${voz.name.replace(/microsoft |google /i, "")}` : ""}
         </p>
       </div>
 
-      {/* El guion completo, resaltando por dónde va. Sirve para seguir con la
-          vista, para quien no oye bien, y para leerlo si prefiere leer. */}
-      <ol className="mt-e4">
-        {guion.map((t, i) => {
-          const actual = i === turno && sonando;
+      {!haySintesis ? (
+        <p className="t-apoyo mt-e3 border-l-2 border-ambar pl-e3 text-tinta">
+          Tu navegador no puede leer en voz alta, pero el texto está completo aquí abajo. En Chrome
+          o Edge sí funciona la lectura.
+        </p>
+      ) : null}
+
+      {/* El texto completo, resaltando por dónde va la voz. Sirve para seguir con
+          la vista, para quien no oye bien y para quien prefiere leer. */}
+      <div className="mt-e4">
+        {parrafos.map((p, i) => {
+          const leyendo = i === indice && sonando;
           return (
-            <li
+            <p
               key={i}
-              className={`border-l-2 py-e2 pl-e3 transition-colors ${
-                actual ? "border-turquesa" : "border-transparent"
+              className={`t-cuerpo border-l-2 py-e2 pl-e3 transition-colors ${
+                leyendo ? "border-turquesa text-tinta" : "border-transparent text-tinta-sec"
               }`}
             >
-              <span className="t-anotacion">{t.voz}</span>
-              <p className={`t-cuerpo mt-0.5 ${actual ? "text-tinta" : "text-tinta-sec"}`}>
-                {t.texto}
-              </p>
-            </li>
+              {p}
+            </p>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 }

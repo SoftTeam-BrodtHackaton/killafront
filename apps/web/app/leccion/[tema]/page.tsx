@@ -58,6 +58,7 @@ export default async function PaginaLeccion({ params }: { params: Promise<{ tema
             quiz={killalab.quiz(slug)}
             flashcards={killalab.flashcards(slug)}
             secuencia={killalab.secuencia(slug)}
+            narracion={killalab.narracion(slug)}
           />
 
           <div className="mt-e6 flex flex-wrap gap-e3 border-t border-borde pt-e2">

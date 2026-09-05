@@ -1,5 +1,5 @@
 import type { PuertoCatalogo, Tema } from "@killalab/dominio";
-import { CRUDOS, FICHAS, FLASHCARDS, QUIZ, SECUENCIAS } from "@killalab/content";
+import { CRUDOS, FICHAS, FLASHCARDS, NARRACIONES, QUIZ, SECUENCIAS } from "@killalab/content";
 import { z } from "zod";
 
 /**
@@ -93,6 +93,13 @@ const EsquemaQuiz = z.object({
   ...Sello,
 });
 
+const EsquemaNarracion = z.object({
+  slug: z.string(),
+  titulo: z.string(),
+  parrafos: z.array(z.string()).min(1),
+  ...Sello,
+});
+
 const EsquemaFicha = z.object({
   slug: z.string(),
   titulo: z.string(),
@@ -133,6 +140,7 @@ const FICHAS_POR_SLUG = porSlug(FICHAS, EsquemaFicha);
 const SECUENCIAS_POR_SLUG = porSlug(SECUENCIAS, EsquemaSecuencia);
 const QUIZ_POR_SLUG = porSlug(QUIZ, EsquemaQuiz);
 const FLASHCARDS_POR_SLUG = porSlug(FLASHCARDS, EsquemaFlashcards);
+const NARRACIONES_POR_SLUG = porSlug(NARRACIONES, EsquemaNarracion);
 
 export const catalogoJson = (): PuertoCatalogo => ({
   temas: () => TEMAS,
@@ -141,4 +149,5 @@ export const catalogoJson = (): PuertoCatalogo => ({
   secuenciaDe: (slug) => SECUENCIAS_POR_SLUG.get(slug) ?? null,
   quizDe: (slug) => QUIZ_POR_SLUG.get(slug) ?? null,
   flashcardsDe: (slug) => FLASHCARDS_POR_SLUG.get(slug) ?? null,
+  narracionDe: (slug) => NARRACIONES_POR_SLUG.get(slug) ?? null,
 });

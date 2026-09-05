@@ -21,7 +21,11 @@ ${JSON.stringify(tema, null, 2)}`;
 
 export const promptQuiz = (tema) => `${contexto(tema)}
 
-Escribe un quiz de repaso de ${Math.min(Math.max(tema.conceptos.length + 1, 3), 6)} preguntas de opción múltiple sobre este tema.
+Escribe un banco de ${Math.min(Math.max(tema.conceptos.length * 3, 8), 12)} preguntas de opción múltiple sobre este tema.
+
+Es un banco, no un examen: la aplicación elegirá unas pocas al azar cada vez que
+alguien repase, así que las preguntas tienen que ser DISTINTAS entre sí. Nada de
+reformular la misma idea con otras palabras.
 
 Reglas:
 - Cada pregunta sale de UN concepto del tema. Pon su id en el campo "concepto".
@@ -74,7 +78,10 @@ Devuelve exactamente:
 
 export const promptFlashcards = (tema) => `${contexto(tema)}
 
-Escribe ${Math.min(Math.max(tema.conceptos.length + 1, 3), 6)} tarjetas de memorización sobre este tema.
+Escribe un banco de ${Math.min(Math.max(tema.conceptos.length * 3, 8), 12)} tarjetas de memorización sobre este tema.
+
+Es un banco: la aplicación elegirá unas pocas al azar en cada repaso, así que las
+preguntas tienen que atacar ángulos DISTINTOS del tema, no la misma idea repetida.
 
 Cada tarjeta es una pregunta ABIERTA que el estudiante responde escribiendo con sus
 propias palabras. No son de opción múltiple y no se responden con sí o no.
@@ -96,3 +103,26 @@ Los ids de tarjeta van "f1", "f2", ...
 
 Devuelve exactamente:
 {"slug":"${tema.slug}","tarjetas":[{"id":"f1","pregunta":"...","respuesta":"...","claves":["...","..."],"concepto":"..."}]}`;
+
+export const promptNarracion = (tema) => `${contexto(tema)}
+
+Explica este tema de corrido, como si se lo contaras en voz alta a alguien que va
+camino al colegio con audífonos puestos.
+
+Es UNA sola voz, no un diálogo. No hay presentador, no hay invitado, no hay
+saludos ni despedidas de programa. Empiezas explicando y terminas cuando está
+explicado.
+
+Reglas:
+- Entre 5 y 8 párrafos, unas 400 palabras en total.
+- Frases cortas y habladas. Se va a oír, no a leer: nada de incisos largos entre
+  comas ni de listas.
+- Sigue el orden de los conceptos del tema, y explica cada uno antes de usarlo.
+- Usa comparaciones con cosas de la vida diaria, pero solo si salen de lo que ya
+  dice el tema. No inventes ejemplos con datos nuevos.
+- Cierra recordando la idea principal en una frase.
+
+"titulo" es cómo lo anunciarías en una frase corta.
+
+Devuelve exactamente:
+{"slug":"${tema.slug}","titulo":"...","parrafos":["...","..."]}`;

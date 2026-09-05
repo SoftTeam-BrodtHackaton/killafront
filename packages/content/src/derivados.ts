@@ -33,10 +33,15 @@ import flaEstaciones from "./derivados/flashcards/estaciones.json";
 import flaFasesDeLaLuna from "./derivados/flashcards/fases-de-la-luna.json";
 import flaGravedadBasica from "./derivados/flashcards/gravedad-basica.json";
 import flaSistemaSolar from "./derivados/flashcards/sistema-solar.json";
+import narDiaYNoche from "./derivados/narraciones/dia-y-noche.json";
+import narElSol from "./derivados/narraciones/el-sol.json";
+import narEstaciones from "./derivados/narraciones/estaciones.json";
+import narFasesDeLaLuna from "./derivados/narraciones/fases-de-la-luna.json";
 
 export const FICHAS: unknown[] = [ficDiaYNoche, ficElSol, ficEstaciones, ficFasesDeLaLuna, ficGravedadBasica, ficSistemaSolar];
 export const SECUENCIAS: unknown[] = [secDiaYNoche, secElSol, secEstaciones, secFasesDeLaLuna, secGravedadBasica, secSistemaSolar];
 export const QUIZ: unknown[] = [quiDiaYNoche, quiElSol, quiEstaciones, quiFasesDeLaLuna, quiGravedadBasica, quiSistemaSolar];
 export const FLASHCARDS: unknown[] = [flaDiaYNoche, flaElSol, flaEstaciones, flaFasesDeLaLuna, flaGravedadBasica, flaSistemaSolar];
+export const NARRACIONES: unknown[] = [narDiaYNoche, narElSol, narEstaciones, narFasesDeLaLuna];
 export const GUIONES: unknown[] = [];
 export const REGISTROS: unknown[] = [];

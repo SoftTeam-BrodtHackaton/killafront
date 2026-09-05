@@ -24,8 +24,8 @@ export const Quiz = z.object({
         concepto: z.string(),
       }),
     )
-    .min(3)
-    .max(8),
+    .min(6)
+    .max(14),
 });
 
 export const Flashcards = z.object({
@@ -47,8 +47,24 @@ export const Flashcards = z.object({
         concepto: z.string(),
       }),
     )
-    .min(2)
-    .max(8),
+    .min(6)
+    .max(14),
+});
+
+/**
+ * La narración: la teoría contada de corrido, con una sola voz.
+ *
+ * No es un diálogo. Un guion a dos voces obliga a escribir "ana dice / beto dice"
+ * y suena a sketch; lo que se pidió es lo que hace NotebookLM, alguien que te
+ * explica el tema seguido mientras vas al colegio.
+ *
+ * Se guarda por párrafos y no como un bloque de texto para poder resaltar por
+ * dónde va la lectura y para que quien prefiera leer, lea.
+ */
+export const Narracion = z.object({
+  slug: z.string(),
+  titulo: z.string().min(5).max(120),
+  parrafos: z.array(z.string().min(40).max(700)).min(4).max(12),
 });
 
 export const Guion = z.object({

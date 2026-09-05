@@ -43,6 +43,13 @@ export interface Quiz extends Sello {
   preguntas: PreguntaQuiz[];
 }
 
+/** La teoría contada de corrido, con una sola voz. Para escuchar. */
+export interface Narracion extends Sello {
+  slug: string;
+  titulo: string;
+  parrafos: string[];
+}
+
 export interface Flashcards extends Sello {
   slug: string;
   tarjetas: TarjetaEscrita[];
@@ -65,4 +72,5 @@ export interface PuertoCatalogo {
   secuenciaDe(slug: string): Secuencia | null;
   quizDe(slug: string): Quiz | null;
   flashcardsDe(slug: string): Flashcards | null;
+  narracionDe(slug: string): Narracion | null;
 }

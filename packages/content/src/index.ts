@@ -12,4 +12,4 @@ import elSol from "./nivel-0/el-sol.json";
  */
 export const CRUDOS: unknown[] = [sistemaSolar, fasesLuna, diaYNoche, estaciones, gravedad, elSol];
 
-export { FICHAS, SECUENCIAS, QUIZ, FLASHCARDS, GUIONES, REGISTROS } from "./derivados";
+export { FICHAS, SECUENCIAS, QUIZ, FLASHCARDS, NARRACIONES, GUIONES, REGISTROS } from "./derivados";

@@ -22,8 +22,8 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { MODELOS, estaVivo, generar, generarValidado } from "./ollama.mjs";
-import { Flashcards, Guion, Quiz, Registros, olfatearInventos } from "./esquemas.mjs";
-import { promptFlashcards, promptGuion, promptQuiz, promptRegistros, SISTEMA } from "./prompts.mjs";
+import { Flashcards, Guion, Narracion, Quiz, Registros, olfatearInventos } from "./esquemas.mjs";
+import { promptFlashcards, promptGuion, promptNarracion, promptQuiz, promptRegistros, SISTEMA } from "./prompts.mjs";
 import { fichaDeRepaso, lineaDeTiempo } from "./derivar.mjs";
 import { escribirIndice } from "./indice.mjs";
 
@@ -77,6 +77,14 @@ const TAREAS = {
     prompt: promptFlashcards,
     // Las claves son el criterio de corrección: aquí no se quiere creatividad.
     temperatura: 0.25,
+  },
+  narracion: {
+    carpeta: "narraciones",
+    modelos: MODELOS.estructurado,
+    esquema: Narracion,
+    prompt: promptNarracion,
+    // Es texto hablado: un poco de aire hace que no suene a manual.
+    temperatura: 0.45,
   },
   guion: {
     carpeta: "guiones",
