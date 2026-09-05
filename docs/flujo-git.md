@@ -1,38 +1,48 @@
-# Flujo de trabajo con Git
+# Flujo de git
 
-## Ramas — GitFlow
+## Una sola rama
 
-| Rama | Para qué | Se mergea a |
-|---|---|---|
-| `main` | producción. Solo recibe releases y hotfixes. Cada merge lleva tag. | — |
-| `develop` | integración. Es la rama por defecto del día a día. | `main` vía `release/*` |
-| `feature/<ambito>-<descripcion>` | una funcionalidad | `develop` |
-| `release/<version>` | estabilización previa a publicar | `main` y `develop` |
-| `hotfix/<descripcion>` | arreglo urgente en producción | `main` y `develop` |
+`main`. Se trabaja y se commitea directo sobre ella.
 
-```bash
-git switch develop
-git switch -c feature/misiones-evaluacion-pasos
-# ... trabajo ...
-git switch develop && git merge --no-ff feature/misiones-evaluacion-pasos
-```
+Se abandonó GitFlow el 2026-09-05. Con un equipo pequeño y plazo de hackathon,
+mantener `develop` más ramas `feature/*` significaba tres merges por cada cosa
+terminada y ninguna de las ventajas que GitFlow existe para dar: no hay versiones
+que sostener en paralelo ni releases que preparar con semanas de antelación.
 
-## Mensajes — Conventional Commits
+Si el proyecto llega a tener usuarios reales en producción y haya que arreglar algo
+sin arrastrar lo que esté a medias, esta decisión se revisa. Hasta entonces, una
+rama.
+
+## Mensajes
+
+Conventional Commits en español.
 
 ```
-<tipo>(<ámbito>): <descripción en imperativo, minúscula, sin punto final>
+feat: nueva funcionalidad
+fix: corrección de un fallo
+refactor: mismo comportamiento, otra forma
+docs: documentación
+chore: build, dependencias, configuración
+test: pruebas
+style: solo formato
 ```
 
-Tipos en uso: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`.
+Reglas del título:
 
-Ámbitos de este repo: `web`, `native`, `tokens`, `api`, `db`, `content`, `docs`, `repo`.
+- imperativo, menos de 72 caracteres, sin punto final,
+- **sin scope entre paréntesis** y sin `/`,
+- en palabras que entienda alguien que no programa: `fix: no permitir cobrar un
+  ticket ya anulado` dice todo; `arreglar bug` no dice nada en seis meses.
 
-```
-feat(web): añadir recuadro de dato en vivo desde DONKI
-fix(api): degradar a fixture cuando DONKI agota la cuota
-docs(repo): documentar arquitectura de frontend
-chore(repo): configurar turborepo y workspaces de pnpm
-```
+El cuerpo va en **primera persona**, como lo escribiría quien lo hizo: "agregué",
+"moví", "corregí". Solo se escribe cuerpo cuando hay un *porqué* que el diff no
+puede mostrar: una regla de negocio, un compromiso, una restricción externa.
 
-Un cambio que rompe compatibilidad lleva `!` antes de los dos puntos y explica el
-motivo en el cuerpo: `feat(api)!: cambiar la forma de Dato<T>`.
+## Identidad
+
+Los commits van con la identidad local configurada en git. **Sin trailers de
+co-autoría y sin menciones a herramientas de IA.**
+
+## El otro repo
+
+`killalanding`, la portada pública, sigue exactamente estas mismas reglas.

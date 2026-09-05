@@ -30,18 +30,35 @@ No dejar el avance solo en el commit: el commit dice *qué* cambió, el vault di
 
 ## Regla 2 — git
 
-GitFlow (`main` / `develop` / `feature/*`) y Conventional Commits en español.
-Detalle en `docs/flujo-git.md`. Los commits van con la identidad local del usuario,
-sin trailers de co-autoría ni menciones a herramientas de IA.
+**Una sola rama: `main`.** Se trabaja y se commitea directo sobre ella. Se abandonó
+GitFlow el 2026-09-05: con un equipo pequeño y plazo de hackathon, mantener
+`develop` y ramas `feature/*` costaba más de lo que ordenaba.
+
+Conventional Commits en español, mensaje en primera persona, sin scope entre
+paréntesis. Los commits van con la identidad local del usuario, **sin trailers de
+co-autoría ni menciones a herramientas de IA**.
+
+El repo hermano `killalanding` (la portada pública) sigue la misma regla.
 
 ## Regla 3 — datos
 
 Ninguna cifra científica se muestra sin su fuente, y ninguna fuente caída rompe la
-pantalla: se degrada a caché o a fixture, siempre fechada y etiquetada. La política
-vive en `packages/api`; la UI solo la muestra (`componentes/dato/`).
+pantalla: se degrada a caché o a respaldo, siempre fechada y etiquetada. La política
+vive en `packages/dominio`; la UI solo la muestra (`componentes/dato/`).
 
 Para desarrollar sin llave ni internet, levantar `apps/fake-api` y apuntar
-`KILLALAB_NASA_BASE` / `KILLALAB_JPL_BASE` a `http://localhost:4000`.
+`KILLALAB_NASA_BASE` / `KILLALAB_JPL_BASE` a `http://localhost:4000`. La fake API
+sirve DONKI (FLR, CME, GST), NeoWs y JPL CAD con su forma real.
+
+## Regla 4 — los dos repos
+
+- `killafront` (este) — la **plataforma**: misiones, tarjetas, mapa mental, notas.
+- `killalanding` — la **portada pública**, con el tablero de clima espacial.
+
+Están separados a propósito: cambian por razones distintas y se despliegan solos.
+El motivo completo está en `killalanding/docs/por-que-repo-aparte.md`. Los tokens de
+diseño y las piezas de dato se duplican en los dos; si empiezan a divergir, hay que
+revisar la decisión.
 
 ## Comandos
 
